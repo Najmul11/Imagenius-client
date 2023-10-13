@@ -1,6 +1,7 @@
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import brand from "../../../assets/brand.png";
+import ResponsiveHeader from "./ResponsiveHeader";
 
 const Header = () => {
   return (
@@ -24,6 +25,7 @@ const Header = () => {
           Sign In
         </Link>
       </div>
+      <ResponsiveHeader />
     </div>
   );
 };

@@ -1,45 +1,37 @@
-import { useState } from "react";
-import { AiOutlineAppstore, AiOutlineClose } from "react-icons/ai";
-import { menus } from "../header/Header.constant";
+import { MdOutlineLogout, MdOutlineManageAccounts } from "react-icons/md";
+
 import { Link } from "react-router-dom";
 
 const ResponsiveHeader = () => {
-  const [showMenu, setShowMenu] = useState<boolean>(false);
+  const user = " ";
 
+  const handleLogout = () => {};
   return (
-    <div className="relative lg:hidden z-50">
-      <div className="flex justify-between items-center p-4 lg:hidden fixed bottom-0 w-full bg-gray-100 border-t  ">
-        <h1 className="text-xl font-semi">{showMenu ? "" : "Najmul"}</h1>
-        <div className="text-2xl" onClick={() => setShowMenu(!showMenu)}>
-          {showMenu ? <AiOutlineClose /> : <AiOutlineAppstore />}
-        </div>
+    <div className="px-5 py-2 fixed bottom-0  w-full lg:hidden shadow-sm border-t bg-gradient-to-t from-gradient to-white">
+      <div
+        className={`flex ${
+          user ? "justify-between" : "justify-center"
+        } text-white text-center`}
+      >
+        {user ? (
+          <button className="text-[12px] text-black">
+            <MdOutlineManageAccounts className="text-3xl text-black z-50 mx-auto" />
+            Profile
+          </button>
+        ) : (
+          <Link to={"/account/login"} className="text-[12px] text-black">
+            <MdOutlineManageAccounts className="text-3xl text-black z-50 mx-auto" />
+            Account
+          </Link>
+        )}
+
+        {user && (
+          <button onClick={handleLogout} className="text-[12px] text-black">
+            <MdOutlineLogout className="text-3xl text-black z-50 mx-auto" />
+            Logout
+          </button>
+        )}
       </div>
-      {showMenu && (
-        <div className="fixed bottom-[57px] w-full ">
-          <ul className="grid grid-cols-3 justify-items-center gap-y-10 px-4 py-8  font-semi text-sm bg-gray-100 rounded-t-3xl ">
-            {menus.map((menu, index) => {
-              const { title, id, icon } = menu;
-              return (
-                <li key={index}>
-                  {title === "Home" ? (
-                    <Link to="/" className="flex flex-col items-center">
-                      {icon} {title}
-                    </Link>
-                  ) : title === "Journal" ? (
-                    <Link to={id} className="flex flex-col items-center ">
-                      {icon} {title}
-                    </Link>
-                  ) : (
-                    <a href={`#${id}`} className="flex flex-col items-center">
-                      {icon} {title}
-                    </a>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
     </div>
   );
 };
