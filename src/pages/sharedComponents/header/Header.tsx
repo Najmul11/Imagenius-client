@@ -1,36 +1,30 @@
-import { menus } from "./Header.constant";
+import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import ResponsiveHeader from "./ResponsiveHeader";
+import brand from "../../../assets/brand.png";
 
 const Header = () => {
   return (
-    <>
-      <div className=" fixed lg:w-4/6 lg:mx-[16.67%] hidden lg:block">
-        <div className="flex justify-between items-center h-14">
-          <h1 className="text-xl font-semi">Najmul</h1>
-
-          <ul className="flex gap-10 font-semi text-sm ">
-            {menus.map((menu, index) => {
-              const { title, id, icon } = menu;
-              return (
-                <li key={index} className="hover:text-ts duration-200">
-                  {title === "Home" ? (
-                    <Link to="/">{title}</Link>
-                  ) : title === "Journal" ? (
-                    <Link to={id} className="flex items-center">
-                      {icon} {title}
-                    </Link>
-                  ) : (
-                    <a href={`#${id}`}>{title}</a>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+    <div className=" bg-gradient-to-b   from-gradient to-white py-6">
+      <div className=" flex justify-between items-center px-2">
+        <label htmlFor="my-drawer" className="cursor-pointer">
+          <div className="p-2 flex items-center gap-3">
+            <AiOutlineMenu className="text-xl" />
+            <span className="font-semi text-lg hidden lg:block">
+              Browse Categories
+            </span>
+          </div>
+        </label>
+        <Link to={"/"}>
+          <img src={brand} alt="" className="w-32 lg:w-44" />
+        </Link>
+        <Link
+          to={"/login"}
+          className="font-semi bg-black text-white px-5 py-1 rounded-full hover:shadow-lg hover:bg-opacity-80"
+        >
+          Sign In
+        </Link>
       </div>
-      <ResponsiveHeader />
-    </>
+    </div>
   );
 };
 

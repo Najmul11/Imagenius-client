@@ -7,6 +7,10 @@ export default {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
+      colors: {
+        gradient: "#e7eef7",
+        gradient2: "#e7eef9",
+      },
 
       fontWeight: {
         semi: "500",
