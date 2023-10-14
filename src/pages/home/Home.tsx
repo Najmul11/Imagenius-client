@@ -1,7 +1,8 @@
 import useTitle from "../../hooks/useTitle";
-import WhyImagenius from "./WhyImagenius";
+import WhyImagenius from "./whyImegeinus/WhyImagenius";
 import Banner from "./banner/Banner";
 import PopularCategories from "./popular/PopularCategories";
+import PopularSearches from "./popularSearch/PopularSearches";
 
 const Home = () => {
   useTitle("Home");
@@ -10,6 +11,7 @@ const Home = () => {
       <Banner />
       <PopularCategories />
       <WhyImagenius />
+      <PopularSearches />
     </div>
   );
 };
