@@ -10,6 +10,10 @@ export default {
       colors: {
         gradient: "#e7eef7",
         gradient2: "#e7eef9",
+        banner: "#693f19",
+      },
+      height: {
+        banner: "500px",
       },
 
       fontWeight: {

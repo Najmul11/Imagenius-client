@@ -8,13 +8,13 @@ const Main = () => {
     <div>
       <Header />
       <div className="min-h-screen">
-        <div className="drawer z-50">
+        <div className="drawer z-20">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content">
+          <div className="drawer-content z-20">
             <SearchBar />
             <Outlet />
           </div>
-          <div className="drawer-side">
+          <div className="drawer-side z-20">
             <label
               htmlFor="my-drawer"
               aria-label="close sidebar"

@@ -21,12 +21,12 @@ const SearchBar = () => {
   }, []);
   return (
     <div
-      className={`sticky top-0 bg-white -z-10 transition-all duration-200 ${
+      className={`sticky top-0 bg-white  transition-all duration-200 z-10 ${
         py === 3 ? "bg-gradient2" : ""
       }`}
     >
-      <div className="flex justify-center py-4">
-        <div className="w-1/2 relative mt-6">
+      <div className="flex justify-center py-2">
+        <div className="w-1/2 relative my-2">
           <input
             type="text"
             placeholder="Search the largest collection of Bangladeshi images"
