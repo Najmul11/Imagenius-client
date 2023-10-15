@@ -2,6 +2,7 @@ import ScrollToTop from "react-scroll-to-top";
 import "./App.css";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import ScrollUpButton from "./pages/sharedComponents/ScrollUpButton/ScrollUpButton";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           return location.pathname;
         }}
       />
+      <Toaster />
       <ScrollToTop
         smooth
         top={500}

@@ -26,7 +26,7 @@ const Main = () => {
             ></label>
             <ul className="menu p-4 w-80 min-h-full  bg-gradient-to-b   from-gradient2 to-white">
               {data?.data.map((category: ICategory) => (
-                <li className="font-semi hover:bg-gradient2">
+                <li key={category._id} className="font-semi hover:bg-gradient2">
                   <Link
                     to={`/categories/${category.category}`}
                     key={category._id}

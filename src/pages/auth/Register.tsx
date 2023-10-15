@@ -1,11 +1,59 @@
-import { Link } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ChangeEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import brand from "../../assets/brand.png";
 import useTitle from "../../hooks/useTitle";
 import { useState } from "react";
+import avatar from "../../assets/avatar.png";
+import { useCreateUserMutation } from "../../redux/api/apiSlice";
+import toast from "react-hot-toast";
+
+type IFormData = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  image?: File | undefined;
+  name: string;
+  imagePreview?: string;
+};
 
 const Register = () => {
   useTitle("Register");
   const [agreeToTC, setAgreeToTC] = useState<boolean>(false);
+  const { control, handleSubmit, setValue, watch } = useForm<IFormData>();
+  const [createUser] = useCreateUserMutation();
+
+  const navigate = useNavigate();
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files![0];
+
+    if (file) {
+      const previewURL = URL.createObjectURL(file);
+      setValue("image", file);
+      setValue("imagePreview", previewURL);
+    }
+  };
+  const imagePreview = watch("imagePreview");
+
+  const onSubmit: SubmitHandler<IFormData> = async (data) => {
+    console.log(data);
+
+    const formData = new FormData();
+    if (data.image) formData.append("file", data.image);
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+
+    const response = (await createUser(formData)) as any;
+
+    if (response.data) {
+      navigate("/");
+      toast.success("You have signed up successfully! Now login");
+    }
+    if (response.error) toast.error(response.error.data.message);
+  };
 
   return (
     <div className="min-h-screen bg-auth bg-no-repeat bg-center  bg-cover">
@@ -14,7 +62,10 @@ const Register = () => {
           <div className="flex justify-center">
             <img src={brand} alt="" />
           </div>
-          <form action="" className="flex gap-4  flex-col pt-8  ">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex gap-4  flex-col pt-8  "
+          >
             <p className="font-semibold text-lg px-2 pb-2">
               Continue with Sign Up
             </p>
@@ -27,6 +78,8 @@ const Register = () => {
                   >
                     <span className="font-semi text-sm ">Choose Avatar</span>
                     <input
+                      name="image"
+                      onChange={(e) => handleFileChange(e)}
                       type="file"
                       id="file-upload"
                       className="absolute  w-full h-full opacity-0 "
@@ -37,7 +90,7 @@ const Register = () => {
                 <div className="shrink-0 ">
                   <img
                     className="h-20 w-20 object-cover rounded-full"
-                    src="https://res.cloudinary.com/dkzqs1nr6/image/upload/v1697273709/Imagenius/categories/Nature_brk09i.jpg"
+                    src={imagePreview ? imagePreview : avatar}
                     alt="Current profile photo"
                   />
                 </div>
@@ -49,10 +102,18 @@ const Register = () => {
                 >
                   Name*
                 </label>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg  h-full w-full  focus:outline-none"
+                <Controller
+                  name="name"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="Name"
+                      className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg  h-full w-full  focus:outline-none"
+                    />
+                  )}
                 />
               </div>
               <div className="relative h-12 w-96">
@@ -62,10 +123,18 @@ const Register = () => {
                 >
                   Email*
                 </label>
-                <input
-                  type="text"
-                  placeholder="Email Address"
-                  className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg  h-full w-full  lg:w-96 focus:outline-none"
+                <Controller
+                  name="email"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="Email Address"
+                      className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg  h-full w-full  lg:w-96 focus:outline-none"
+                    />
+                  )}
                 />
               </div>
               <div className="relative h-12 ">
@@ -75,10 +144,18 @@ const Register = () => {
                 >
                   Password*
                 </label>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg h-full w-full  lg:w-96 focus:outline-none"
+                <Controller
+                  name="password"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="password"
+                      placeholder="Password"
+                      className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg h-full w-full  lg:w-96 focus:outline-none"
+                    />
+                  )}
                 />
               </div>
               <div className="relative h-12 ">
@@ -88,10 +165,18 @@ const Register = () => {
                 >
                   Confirm Password*
                 </label>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg h-full w-full  lg:w-96 focus:outline-none"
+                <Controller
+                  name="confirmPassword"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="password"
+                      placeholder="Password"
+                      className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg h-full w-full  lg:w-96 focus:outline-none"
+                    />
+                  )}
                 />
               </div>
             </div>
@@ -114,6 +199,7 @@ const Register = () => {
 
             <div className="">
               <button
+                type="submit"
                 disabled={!agreeToTC}
                 className="px-8 py-3 text-white w-full bg-black bg-opacity-90 hover:bg-opacity-100 duration-200  rounded-lg font-semi "
               >
