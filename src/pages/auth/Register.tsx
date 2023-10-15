@@ -9,8 +9,8 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-auth bg-no-repeat bg-center  bg-cover">
-      <div className=" flex justify-end lg:mr-20">
-        <div className="bg-white mt-32 px-10 pt-10 pb-5">
+      <div className=" flex justify-center lg:justify-end lg:mr-20">
+        <div className="bg-white mt-24 lg:mt-32 px-10 pt-10 pb-5">
           <div className="flex justify-center">
             <img src={brand} alt="" />
           </div>
@@ -29,7 +29,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Name"
-                  className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg  h-full w-full  lg:w-96 focus:outline-none"
+                  className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg  h-full w-full  focus:outline-none"
                 />
               </div>
               <div className="relative h-12 w-96">

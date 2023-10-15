@@ -6,8 +6,8 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-auth bg-no-repeat bg-center  bg-cover">
-      <div className=" flex justify-end lg:mr-20">
-        <div className="bg-white mt-32 px-10 pt-10 pb-5">
+      <div className=" flex justify-center lg:justify-end lg:mr-20">
+        <div className="bg-white mt-24 lg:mt-32 px-10 pt-10 pb-5">
           <div className="flex justify-center">
             <img src={brand} alt="" />
           </div>

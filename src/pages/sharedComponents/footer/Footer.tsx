@@ -17,7 +17,7 @@ const Footer = () => {
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}`;
   const mailtoUrl = `mailto:$najmulbinnurul@gmail.com`;
   return (
-    <div className=" bg-black py-10 px-5 text-white mb-10">
+    <div className=" bg-black py-10 px-5 text-white mb-10 lg:mb-0">
       <div className="flex  flex-col lg:flex-row gap-10">
         <div className="w-full lg:w-1/2 flex flex-col gap-5 lg:gap-10 ">
           <div className="flex flex-col gap-5 ">

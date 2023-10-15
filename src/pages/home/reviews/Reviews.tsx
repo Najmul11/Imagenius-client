@@ -32,7 +32,7 @@ const Reviews = () => {
             {reviews.map((review, index) => (
               <div
                 key={index}
-                className=" py-10 px-5 text-md font-semi border-2 border-gray-400  h-[200px] mb-2 "
+                className=" py-10 px-5 text-md font-semi border-2 border-gray-400  h-[200px] mb-1 "
               >
                 <div className="mb-5">
                   <FaQuoteLeft />

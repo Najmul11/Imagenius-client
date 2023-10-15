@@ -18,7 +18,7 @@ function App() {
         style={{
           backgroundColor: "black",
           zIndex: 100,
-          border: "1px solid white",
+          boxShadow: "0px 2px  rgba(255, 255, 255, .6)",
         }}
       />
 
