@@ -25,17 +25,17 @@ const SearchBar = () => {
         py === 3 ? "bg-gradient2" : ""
       }`}
     >
-      <div className="flex justify-center py-2">
-        <div className="w-1/2 relative my-2">
+      <div className="flex justify-center py-4 px-2 lg:px-0">
+        <div className="w-full lg:w-1/2 relative ">
           <input
             type="text"
             placeholder="Search the largest collection of Bangladeshi images"
-            className={`border border-black py-${py} bg-white w-full lg:px-12 focus:outline-none text-lg transition-all duration-400 ease-in-out placeholder:text-gray-500 placeholder:font-semi`}
+            className={`border border-black py-${py} bg-white w-full px-8  lg:px-12 focus:outline-none text-md transition-all duration-400 ease-in-out placeholder:text-gray-500 placeholder:font-semi placeholder:text-sm  `}
           />
           <div
             className={`absolute ${
               py === 3 ? "top-[25%]" : "top-[30%]"
-            } lg:ml-3`}
+            } ml-1 lg:ml-3`}
           >
             <AiOutlineSearch className="text-3xl" />
           </div>

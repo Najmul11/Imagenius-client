@@ -12,7 +12,7 @@ interface IProps {
 const Infos = ({ title, tags }: IProps) => {
   return (
     <div className="flex gap-5 flex-col">
-      <h3 className="font-semi">{title}</h3>
+      <h3 className="font-semi text-sm lg:text-[16px]">{title}</h3>
       <div className="flex flex-col gap-1">
         {tags.map((tag, index) => (
           <Link

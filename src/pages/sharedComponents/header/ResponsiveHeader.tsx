@@ -7,7 +7,7 @@ const ResponsiveHeader = () => {
 
   const handleLogout = () => {};
   return (
-    <div className="px-5 py-2 fixed bottom-0  w-full lg:hidden shadow-sm border-t bg-gradient-to-t from-gradient to-white">
+    <div className="px-5 py-2 fixed bottom-0 z-50  w-full lg:hidden shadow-sm border-t bg-gradient-to-t from-gradient to-white">
       <div
         className={`flex ${
           user ? "justify-between" : "justify-center"

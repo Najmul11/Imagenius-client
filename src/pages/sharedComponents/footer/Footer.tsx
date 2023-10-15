@@ -17,11 +17,11 @@ const Footer = () => {
   const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}`;
   const mailtoUrl = `mailto:$najmulbinnurul@gmail.com`;
   return (
-    <div className=" bg-black py-10 px-5 text-white ">
-      <div className="flex   ">
-        <div className="w-1/2 flex flex-col gap-10">
-          <div className="flex flex-col gap-5">
-            <div className="flex gap-5 items-center">
+    <div className=" bg-black py-10 px-5 text-white mb-10">
+      <div className="flex  flex-col lg:flex-row gap-10">
+        <div className="w-full lg:w-1/2 flex flex-col gap-5 lg:gap-10 ">
+          <div className="flex flex-col gap-5 ">
+            <div className="flex gap-5 items-center ">
               <BiSolidMessageSquareDetail className="text-xl" />
               <a
                 href={mailtoUrl}
@@ -64,17 +64,17 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/2 grid grid-cols-3 ">
+        <div className="w-full lg:w-1/2 grid grid-cols-3 ">
           <Infos title={"Company Info"} tags={companyInfo} />
           <Infos title={"Learn More"} tags={learnMore} />
           <Infos title={"Need Help?"} tags={needhelp} />
         </div>
       </div>
-      <p className="text-center mt-5 font-semi">
+      <p className="text-center mt-5 font-semi text-sm lg:text-[16px] ">
         © https://imagenius.com. A division of Mash Audio Visuals Pvt. Ltd. All
         rights reserved.
       </p>
-      <div className="flex justify-between items-center w-2/5 mx-auto mt-5 ">
+      <div className="flex flex-col lg:flex-row justify-between items-center w-full lg:w-2/5 mx-auto mt-5 gap-3">
         <div className="flex gap-3  text-sm text-gray-400 ">
           <Link
             to={"/terms-of-use"}
