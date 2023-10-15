@@ -5,6 +5,7 @@ type IUserState = {
     _id: string;
     email: string;
     name: string;
+    photoUrl: string;
   } | null;
 };
 

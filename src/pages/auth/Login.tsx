@@ -19,6 +19,7 @@ type IUser = {
   _id: string;
   email: string;
   name: string;
+  photoUrl: string;
 } | null;
 
 const Login = () => {
@@ -29,7 +30,7 @@ const Login = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/account/my-profile";
+  const from = location.state?.from?.pathname || "/dashboard/my-profile";
 
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
