@@ -22,7 +22,7 @@ const SearchBar = () => {
   return (
     <div
       className={`sticky top-0 bg-white  transition-all duration-200 z-10 ${
-        py === 3 ? "bg-gradient2" : ""
+        py === 3 ? "bg-gradient" : ""
       }`}
     >
       <div className="flex justify-center py-4 px-2 lg:px-0">

@@ -7,7 +7,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-auth bg-no-repeat bg-center  bg-cover">
       <div className=" flex justify-center lg:justify-end lg:mr-20">
-        <div className="bg-white mt-24 lg:mt-32 px-10 pt-10 pb-5">
+        <div className="bg-white mt-16 lg:mt-20 px-10 pt-10 pb-5">
           <div className="flex justify-center">
             <img src={brand} alt="" />
           </div>
@@ -21,7 +21,7 @@ const Login = () => {
                   htmlFor=""
                   className="absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi"
                 >
-                  Email
+                  Email*
                 </label>
                 <input
                   type="text"
@@ -35,7 +35,7 @@ const Login = () => {
                     htmlFor=""
                     className="absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi"
                   >
-                    Password
+                    Password*
                   </label>
                   <input
                     type="password"
