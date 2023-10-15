@@ -7,12 +7,11 @@ export const api = createApi({
   }),
   tagTypes: ["wishlist", "books"],
   endpoints: (builder) => ({
-    getAllBooks: builder.query({
-      query: (queryParams) => ({
-        url: `/books?${new URLSearchParams(queryParams).toString()}`,
-        method: "GET",
+    getAllCategories: builder.query({
+      query: (params) => ({
+        url: `/categories?${new URLSearchParams(params).toString()}`,
+        method: "Get",
       }),
-      providesTags: ["books"],
     }),
 
     createUser: builder.mutation({
@@ -46,9 +45,8 @@ export const api = createApi({
 });
 
 export const {
-  useGetAllBooksQuery,
-
   useUserLoginMutation,
   useCreateUserMutation,
   useGetProfileQuery,
+  useGetAllCategoriesQuery,
 } = api;
