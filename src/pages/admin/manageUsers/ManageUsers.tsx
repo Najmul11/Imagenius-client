@@ -3,7 +3,7 @@ import { IUser } from "../../auth/Login";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 
-const Users = () => {
+const ManageUsers = () => {
   const { data } = useGetAllUsersQuery(undefined);
 
   return (
@@ -54,4 +54,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default ManageUsers;

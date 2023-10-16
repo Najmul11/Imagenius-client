@@ -29,10 +29,6 @@ export const adminMenus = [
     to: "/dashboard/my-profile",
     tag: "Profile Summery",
   },
-  {
-    to: "/dashboard/edit-profile",
-    tag: "Edit profile",
-  },
 
   {
     to: "/dashboard/admin/orders",

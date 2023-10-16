@@ -3,7 +3,7 @@ import { useGetAllCategoriesQuery } from "../../../redux/api/apiSlice";
 import { ICategory } from "../../home/popular/SingleCategory";
 import { Link } from "react-router-dom";
 
-const Categories = () => {
+const ManageCategories = () => {
   const { data } = useGetAllCategoriesQuery(undefined);
 
   return (
@@ -52,4 +52,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default ManageCategories;

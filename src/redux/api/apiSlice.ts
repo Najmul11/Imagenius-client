@@ -20,6 +20,13 @@ export const api = createApi({
       }),
     }),
 
+    getAllImages: builder.query({
+      query: (params) => ({
+        url: `/images?${new URLSearchParams(params).toString()}`,
+        method: "Get",
+      }),
+    }),
+
     createUser: builder.mutation({
       query: (data) => ({
         url: `/users/signup`,
@@ -56,4 +63,5 @@ export const {
   useGetProfileQuery,
   useGetAllCategoriesQuery,
   useGetAllUsersQuery,
+  useGetAllImagesQuery,
 } = api;

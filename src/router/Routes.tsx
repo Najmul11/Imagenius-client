@@ -8,8 +8,9 @@ import Main from "../layouts/Main";
 import MyProfile from "../pages/myProfile/MyProfile";
 import DashBoard from "../layouts/DashBoard";
 import EditProfile from "../pages/editProfile/EditProfile";
-import Users from "../pages/admin/users/Users";
-import Categories from "../pages/admin/categories/Categories";
+import ManageImages from "../pages/admin/manageImages/ManageImages";
+import ManageUsers from "../pages/admin/manageUsers/ManageUsers";
+import ManageCategories from "../pages/admin/manageCategories/ManageCategories";
 
 export const router = createBrowserRouter([
   {
@@ -39,12 +40,16 @@ export const router = createBrowserRouter([
             element: <EditProfile />,
           },
           {
-            path: "/dashboard/admin/user-management",
-            element: <Users />,
+            path: "/dashboard/admin/category-management",
+            element: <ManageCategories />,
           },
           {
-            path: "/dashboard/admin/category-management",
-            element: <Categories />,
+            path: "/dashboard/admin/image-management",
+            element: <ManageImages />,
+          },
+          {
+            path: "/dashboard/admin/user-management",
+            element: <ManageUsers />,
           },
         ],
       },
