@@ -8,6 +8,8 @@ import Main from "../layouts/Main";
 import MyProfile from "../pages/myProfile/MyProfile";
 import DashBoard from "../layouts/DashBoard";
 import EditProfile from "../pages/editProfile/EditProfile";
+import Users from "../pages/admin/users/Users";
+import Categories from "../pages/admin/categories/Categories";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/edit-profile",
             element: <EditProfile />,
+          },
+          {
+            path: "/dashboard/admin/user-management",
+            element: <Users />,
+          },
+          {
+            path: "/dashboard/admin/category-management",
+            element: <Categories />,
           },
         ],
       },

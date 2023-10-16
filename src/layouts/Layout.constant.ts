@@ -47,7 +47,7 @@ export const adminMenus = [
     tag: "Manage Images",
   },
   {
-    to: "/dashboard/admin/users",
+    to: "/dashboard/admin/user-management",
     tag: "Manage Users",
   },
   {

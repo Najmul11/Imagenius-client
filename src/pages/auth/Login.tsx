@@ -15,11 +15,12 @@ type IFormData = {
   password: string;
 };
 
-type IUser = {
+export type IUser = {
   _id: string;
   email: string;
   name: string;
-  photoUrl: string;
+  photoUrl?: string;
+  role: string;
 } | null;
 
 const Login = () => {
