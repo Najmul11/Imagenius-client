@@ -7,10 +7,13 @@ import App from "../App";
 import Main from "../layouts/Main";
 import MyProfile from "../pages/myProfile/MyProfile";
 import DashBoard from "../layouts/DashBoard";
-import EditProfile from "../pages/editProfile/EditProfile";
 import ManageImages from "../pages/admin/manageImages/ManageImages";
 import ManageUsers from "../pages/admin/manageUsers/ManageUsers";
 import ManageCategories from "../pages/admin/manageCategories/ManageCategories";
+import ManageOrders from "../pages/admin/manageOrders/ManageOrders";
+import PurchaseHistory from "../pages/user/purchaseHistory/PurchaseHistory";
+import PendingOrders from "../pages/user/pendingOrders/PendingOrders";
+import Cart from "../pages/user/cart/Cart";
 
 export const router = createBrowserRouter([
   {
@@ -36,8 +39,21 @@ export const router = createBrowserRouter([
             element: <MyProfile />,
           },
           {
-            path: "/dashboard/edit-profile",
-            element: <EditProfile />,
+            path: "/dashboard/purchase-history",
+            element: <PurchaseHistory />,
+          },
+          {
+            path: "/dashboard/pending-orders",
+            element: <PendingOrders />,
+          },
+          {
+            path: "/dashboard/cart",
+            element: <Cart />,
+          },
+
+          {
+            path: "/dashboard/admin/order-management",
+            element: <ManageOrders />,
           },
           {
             path: "/dashboard/admin/category-management",

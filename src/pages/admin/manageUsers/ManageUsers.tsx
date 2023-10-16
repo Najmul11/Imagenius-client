@@ -1,6 +1,6 @@
 import { useGetAllUsersQuery } from "../../../redux/api/apiSlice";
 import { IUser } from "../../auth/Login";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { MdOutlineAdminPanelSettings, MdOutlineDelete } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 
 const ManageUsers = () => {
@@ -35,14 +35,14 @@ const ManageUsers = () => {
                   </button>
                 ) : (
                   <button className=" flex items-center  gap-3  rounded-xl    font-semi  transition-all duration-300 bg-gradient2 bg-opacity-50 hover:bg-opacity-90 px-2 py-1 ">
-                    <MdOutlineAdminPanelSettings className="text-red-500" />
+                    <MdOutlineAdminPanelSettings className="text-blue-500" />
                     Make Admin
                   </button>
                 )}
               </td>
               <td className="flex justify-end">
                 <button className=" flex items-center  gap-3  rounded-xl    font-semi  transition-all duration-300 hover:text-red-500 bg-gradient2 bg-opacity-50 px-2 py-1 ">
-                  <FiDelete className="text-red-500" />
+                  <MdOutlineDelete className="text-red-500" />
                   Delete User
                 </button>
               </td>

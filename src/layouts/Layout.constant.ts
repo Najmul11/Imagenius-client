@@ -3,17 +3,14 @@ export const userMenus = [
     to: "/dashboard/my-profile",
     tag: "Profile Summery",
   },
-  {
-    to: "/dashboard/edit-profile",
-    tag: "Edit profile",
-  },
+
   {
     to: "/dashboard/purchase-history",
     tag: "Purchase History",
   },
   {
-    to: "/dashboard/orders",
-    tag: "Orders",
+    to: "/dashboard/pending-orders",
+    tag: "Pending Orders",
   },
   {
     to: "/dashboard/cart",
@@ -31,7 +28,7 @@ export const adminMenus = [
   },
 
   {
-    to: "/dashboard/admin/orders",
+    to: "/dashboard/admin/order-management",
     tag: "Manage Orders",
   },
   {

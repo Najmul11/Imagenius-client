@@ -26,6 +26,12 @@ export const api = createApi({
         method: "Get",
       }),
     }),
+    getAllOrders: builder.query({
+      query: (params) => ({
+        url: `/orders?${new URLSearchParams(params).toString()}`,
+        method: "Get",
+      }),
+    }),
 
     createUser: builder.mutation({
       query: (data) => ({
@@ -64,4 +70,5 @@ export const {
   useGetAllCategoriesQuery,
   useGetAllUsersQuery,
   useGetAllImagesQuery,
+  useGetAllOrdersQuery,
 } = api;

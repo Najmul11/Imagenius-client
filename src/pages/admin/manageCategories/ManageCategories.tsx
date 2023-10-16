@@ -1,7 +1,7 @@
-import { FiDelete } from "react-icons/fi";
 import { useGetAllCategoriesQuery } from "../../../redux/api/apiSlice";
 import { ICategory } from "../../home/popular/SingleCategory";
 import { Link } from "react-router-dom";
+import { MdOutlineDelete } from "react-icons/md";
 
 const ManageCategories = () => {
   const { data } = useGetAllCategoriesQuery(undefined);
@@ -40,7 +40,7 @@ const ManageCategories = () => {
               </td>
               <td>
                 <button className="mx-auto flex items-center gap-3  rounded-xl    font-semi  transition-all duration-300 hover:text-red-500 bg-gradient2 bg-opacity-50 px-2 py-1 ">
-                  <FiDelete className="text-red-500" />
+                  <MdOutlineDelete className="text-red-500" />
                   Delete category
                 </button>
               </td>
