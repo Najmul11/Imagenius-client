@@ -15,8 +15,8 @@ export type IImage = {
 const ManageImages = () => {
   const { data } = useGetAllImagesQuery(undefined);
   return (
-    <div className="w-4/5 mx-auto my-20">
-      <div className="grid grid-cols-6 justify-items-center gap-y-4 ">
+    <div className="lg:w-4/5 mx-auto my-20">
+      <div className="grid grid-cols-2 md:grid lg:grid-cols-6 justify-items-center gap-y-4 ">
         {data?.data.map((image: IImage) => (
           <Link
             to={`/images/${image._id}`}

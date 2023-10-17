@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 const Actions = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const handleLogout = async () => {
     await dispatch(clearAccessToken());
     await dispatch(clearUser());
@@ -19,28 +20,28 @@ const Actions = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center mt-10">
-        <Link
-          to={"/dashboard/edit-profile"}
+      <div className="flex flex-col md:flex-row gap-5 justify-center   mt-10 ">
+        <label
+          htmlFor="edit-profile"
           className=" flex items-center gap-3 bg-gradient bg-opacity-50 hover:bg-opacity-100  rounded-lg  p-2 px-5 text-[16px] font-semi  transition-all duration-300"
         >
           <FaEdit className="text-2xl" />
           Edit Profile
-        </Link>
-        <Link
-          to={"/dashboard/edit-profile"}
+        </label>
+        <label
+          htmlFor="change-payment"
           className=" flex items-center gap-3 bg-gradient bg-opacity-50 hover:bg-opacity-100  rounded-lg  p-2 px-5 text-[16px] font-semi  transition-all duration-300"
         >
           <FaEdit className="text-2xl" />
           Change Payment Method
-        </Link>
-        <Link
-          to={"/dashboard/my-profile/change-password"}
+        </label>
+        <label
+          htmlFor="change-password"
           className=" flex items-center gap-3 bg-gradient bg-opacity-50 hover:bg-opacity-100  rounded-lg  p-2 px-5 text-[16px] font-semi  transition-all duration-300"
         >
           <AiOutlineLock className="text-2xl" />
           Change Password
-        </Link>
+        </label>
       </div>
       <div className="flex justify-center">
         <button
