@@ -71,6 +71,29 @@ export const api = createApi({
       }),
       invalidatesTags: ["users"],
     }),
+
+    updateUser: builder.mutation({
+      query: ({ data, accessToken }) => ({
+        url: `/users/update-profile`,
+        method: "PATCH",
+        body: data,
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["users"],
+    }),
+    changePassword: builder.mutation({
+      query: ({ data, accessToken }) => ({
+        url: `/users/change-password`,
+        method: "PATCH",
+        body: data,
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["users"],
+    }),
     deleteUser: builder.mutation({
       query: ({ data, accessToken }) => ({
         url: `/users/delete-user`,
@@ -106,4 +129,6 @@ export const {
   useMakeAdminMutation,
   useRemoveAdminMutation,
   useDeleteUserMutation,
+  useUpdateUserMutation,
+  useChangePasswordMutation,
 } = api;

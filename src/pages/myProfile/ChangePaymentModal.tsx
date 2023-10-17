@@ -1,12 +1,33 @@
-import { Controller, useForm } from "react-hook-form";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useUpdateUserMutation } from "../../redux/api/apiSlice";
+import { useAppSelector } from "../../redux/hook";
+import toast from "react-hot-toast";
 
 type IFormData = {
-  paymentMethod: string;
+  payment: string;
 };
 
 const options = ["Bkash", "Nagad", "Binance"];
+
 const ChangePaymentModal = () => {
   const { control, handleSubmit } = useForm<IFormData>();
+  const [updateUser] = useUpdateUserMutation();
+
+  const { accessToken } = useAppSelector((state) => state.accessToken);
+  const { user } = useAppSelector((state) => state.user);
+  console.log(user?._id);
+
+  const onSubmit: SubmitHandler<IFormData> = async (data) => {
+    console.log(accessToken);
+    const response = (await updateUser({
+      data,
+      accessToken: accessToken,
+    })) as any;
+
+    if (response.data) toast.success("Payment Method Updated Successfully");
+    if (response.error) toast.error("Operation failed. Try later");
+  };
 
   return (
     <>
@@ -14,7 +35,10 @@ const ChangePaymentModal = () => {
       <div className="modal">
         <div className="modal-box">
           <h3 className="text-lg font-bold">Change Payment Method</h3>
-          <form className="mt-10 flex flex-col gap-5">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-10 flex flex-col gap-5"
+          >
             <div className="relative h-12 ">
               <label
                 htmlFor=""
@@ -23,15 +47,14 @@ const ChangePaymentModal = () => {
                 Select Payment Method
               </label>
               <Controller
-                name="paymentMethod"
+                name="payment"
                 control={control}
-                defaultValue=""
+                defaultValue="Bkash"
                 render={({ field }) => (
                   <select
                     {...field}
                     className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg h-full w-full focus:outline-none"
                   >
-                    <option value="">Select Payment Method</option>
                     {options.map((option) => (
                       <option key={option} value={option}>
                         {option}

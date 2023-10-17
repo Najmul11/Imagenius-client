@@ -38,8 +38,6 @@ const Register = () => {
   const imagePreview = watch("imagePreview");
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
-    console.log(data);
-
     const formData = new FormData();
     if (data.image) formData.append("file", data.image);
     formData.append("name", data.name);

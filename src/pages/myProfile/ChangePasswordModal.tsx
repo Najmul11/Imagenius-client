@@ -1,4 +1,8 @@
-import { Controller, useForm } from "react-hook-form";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useChangePasswordMutation } from "../../redux/api/apiSlice";
+import { useAppSelector } from "../../redux/hook";
+import toast from "react-hot-toast";
 
 type IFormData = {
   oldPassword: string;
@@ -7,13 +11,30 @@ type IFormData = {
 const ChangePasswordModal = () => {
   const { control, handleSubmit } = useForm<IFormData>();
 
+  const [changePassword] = useChangePasswordMutation();
+
+  const { accessToken } = useAppSelector((state) => state.accessToken);
+
+  const onSubmit: SubmitHandler<IFormData> = async (data) => {
+    const response = (await changePassword({
+      data,
+      accessToken: accessToken,
+    })) as any;
+
+    if (response.data) toast.success("Password has been changed Successfully");
+    if (response.error) toast.error("Incorrect Old Password");
+  };
+
   return (
     <>
       <input type="checkbox" id="change-password" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
           <h3 className="text-lg font-bold">Change Password</h3>
-          <form className="mt-10 flex flex-col gap-5">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-10 flex flex-col gap-5"
+          >
             <div className="relative h-12">
               <label
                 htmlFor=""
