@@ -34,6 +34,13 @@ export const api = createApi({
         method: "Get",
       }),
     }),
+    getSingleImage: builder.query({
+      query: (params) => ({
+        url: `/images/${params}`,
+        method: "Get",
+      }),
+      providesTags: ["images"],
+    }),
 
     createUser: builder.mutation({
       query: (data) => ({
@@ -182,4 +189,5 @@ export const {
   useAddImageMutation,
   useEditImageMutation,
   useDeleteImageMutation,
+  useGetSingleImageQuery,
 } = api;

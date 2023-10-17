@@ -26,7 +26,7 @@ const Images = () => {
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 px-4 my-20">
         {data?.data?.map((image: IImage) => (
-          <div>
+          <div key={image._id}>
             <Link to={`/images/${image?._id}`}>
               <img src={image?.image} alt="" />
             </Link>
