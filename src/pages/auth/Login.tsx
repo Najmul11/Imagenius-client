@@ -4,7 +4,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import brand from "../../assets/brand.png";
 import useTitle from "../../hooks/useTitle";
 import { useUserLoginMutation } from "../../redux/api/apiSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { useAppDispatch } from "../../redux/hook";
 import { setAccessToken } from "../../redux/slices/accessTokenSlice";
 import jwtDecode from "jwt-decode";
 import { setUser } from "../../redux/slices/userSlice";
@@ -25,7 +25,7 @@ export type IUser = {
 
 const Login = () => {
   useTitle("Login");
-  const [userLogin, { isLoading }] = useUserLoginMutation();
+  const [userLogin] = useUserLoginMutation();
 
   const { handleSubmit, control } = useForm<IFormData>();
 

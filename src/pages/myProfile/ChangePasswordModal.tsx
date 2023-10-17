@@ -40,7 +40,7 @@ const ChangePasswordModal = () => {
                 htmlFor=""
                 className="absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi"
               >
-                Old Password
+                Old Password*
               </label>
               <Controller
                 name="oldPassword"
@@ -61,7 +61,7 @@ const ChangePasswordModal = () => {
                 htmlFor=""
                 className="absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi"
               >
-                New Passwoed
+                New Passwoed*
               </label>
               <Controller
                 name="newPassword"

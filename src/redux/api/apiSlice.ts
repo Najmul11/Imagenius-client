@@ -5,7 +5,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5001/api/v1",
   }),
-  tagTypes: ["users", "user"],
+  tagTypes: ["users", "user", "images"],
   endpoints: (builder) => ({
     getAllCategories: builder.query({
       query: (params) => ({
@@ -26,6 +26,7 @@ export const api = createApi({
         url: `/images?${new URLSearchParams(params).toString()}`,
         method: "Get",
       }),
+      providesTags: ["images"],
     }),
     getAllOrders: builder.query({
       query: (params) => ({
@@ -128,6 +129,39 @@ export const api = createApi({
       }),
       providesTags: ["user"],
     }),
+
+    addImage: builder.mutation({
+      query: ({ data, accessToken }) => ({
+        url: `/images/add-image`,
+        method: "POST",
+        body: data,
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["images"],
+    }),
+    editImage: builder.mutation({
+      query: ({ data, accessToken, imageId }) => ({
+        url: `/images/${imageId}`,
+        method: "PATCH",
+        body: data,
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["images"],
+    }),
+    deleteImage: builder.mutation({
+      query: ({ accessToken, imageId }) => ({
+        url: `/images/${imageId}`,
+        method: "DELETE",
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["images"],
+    }),
   }),
 });
 
@@ -145,4 +179,7 @@ export const {
   useUpdateProfileMutation,
   useChangePaymentMutation,
   useChangePasswordMutation,
+  useAddImageMutation,
+  useEditImageMutation,
+  useDeleteImageMutation,
 } = api;
