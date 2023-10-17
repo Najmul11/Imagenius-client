@@ -14,7 +14,8 @@ import ManageOrders from "../pages/admin/manageOrders/ManageOrders";
 import PurchaseHistory from "../pages/user/purchaseHistory/PurchaseHistory";
 import PendingOrders from "../pages/user/pendingOrders/PendingOrders";
 import Cart from "../pages/user/cart/Cart";
-import CategoryImages from "../pages/categoryImages/CategoryImages";
+import Images from "../pages/images/Images";
+import ImageDetails from "../pages/images/ImageDetails";
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "/categories/:category",
-            element: <CategoryImages />,
+            element: <Images />,
           },
         ],
       },
@@ -74,6 +75,12 @@ export const router = createBrowserRouter([
           },
         ],
       },
+
+      {
+        path: "/images/:id",
+        element: <ImageDetails />,
+      },
+
       {
         path: "/login",
         element: <Login />,
