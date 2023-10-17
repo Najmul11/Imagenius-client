@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
-import {
-  useDeleteImageMutation,
-  useGetAllImagesQuery,
-} from "../../../redux/api/apiSlice";
+import { useGetAllImagesQuery } from "../../../redux/api/apiSlice";
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import { BsCalendarPlus } from "react-icons/bs";
@@ -11,7 +8,7 @@ import { useAppSelector } from "../../../redux/hook";
 import AddImageModal from "./AddImageModal";
 import EditImageModal from "./EditImageModal";
 import { ChangeEvent, useState } from "react";
-import toast from "react-hot-toast";
+import DeleteModal from "./DeleteModal";
 
 export type ICategory = {
   _id: string;
@@ -33,25 +30,12 @@ const ManageImages = () => {
   const { data } = useGetAllImagesQuery(undefined);
 
   const { user: usingAs } = useAppSelector((state) => state.user);
-  const { accessToken } = useAppSelector((state) => state.accessToken);
 
   const [image, setImage] = useState<IImage>(null);
-
-  const [deleteImage] = useDeleteImageMutation();
 
   const handleModalData = (image: IImage, e: ChangeEvent) => {
     e.stopPropagation();
     setImage(image);
-  };
-
-  const handleImageDelete = async (imageId: string, e: ChangeEvent) => {
-    e.stopPropagation();
-    const response = (await deleteImage({
-      accessToken: accessToken,
-      imageId: imageId,
-    })) as any;
-    if (response.data) toast.success("Image deleted successfully");
-    if (response.error) toast.error("Something went wrong");
   };
 
   return (
@@ -97,9 +81,12 @@ const ManageImages = () => {
                 >
                   <FaEdit className="hover:text-white" />
                 </label>
-                <div onClick={(e) => handleImageDelete(image!._id, e)}>
+                <label
+                  htmlFor="delete-image"
+                  onClick={(e) => handleModalData(image, e)}
+                >
                   <AiFillDelete className="hover:text-red-500" />
-                </div>
+                </label>
               </div>
             </div>
           </Link>
@@ -107,6 +94,7 @@ const ManageImages = () => {
       </div>
       <AddImageModal />
       {image && <EditImageModal image={image} />}
+      {image && <DeleteModal image={image} />}
     </div>
   );
 };
