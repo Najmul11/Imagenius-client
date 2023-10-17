@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useUpdateUserMutation } from "../../redux/api/apiSlice";
+import { useChangePaymentMutation } from "../../redux/api/apiSlice";
 import { useAppSelector } from "../../redux/hook";
 import toast from "react-hot-toast";
 
@@ -12,15 +12,14 @@ const options = ["Bkash", "Nagad", "Binance"];
 
 const ChangePaymentModal = () => {
   const { control, handleSubmit } = useForm<IFormData>();
-  const [updateUser] = useUpdateUserMutation();
+  const [changePayment] = useChangePaymentMutation();
 
   const { accessToken } = useAppSelector((state) => state.accessToken);
   const { user } = useAppSelector((state) => state.user);
   console.log(user?._id);
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
-    console.log(accessToken);
-    const response = (await updateUser({
+    const response = (await changePayment({
       data,
       accessToken: accessToken,
     })) as any;

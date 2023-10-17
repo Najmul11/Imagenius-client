@@ -1,13 +1,35 @@
-import { Controller, useForm } from "react-hook-form";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useAppSelector } from "../../redux/hook";
+import {
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+} from "../../redux/api/apiSlice";
+import toast from "react-hot-toast";
 
 type IFormData = {
   email: string;
   name: string;
 };
 const EditProfileModal = () => {
-  const { user } = useAppSelector((state) => state.user);
   const { control, handleSubmit } = useForm<IFormData>();
+
+  const { accessToken } = useAppSelector((state) => state.accessToken);
+  const [updateProfile] = useUpdateProfileMutation();
+
+  const { data } = useGetProfileQuery(accessToken);
+  let using = null;
+  if (data?.data) using = data?.data;
+
+  const onSubmit: SubmitHandler<IFormData> = async (data) => {
+    const response = (await updateProfile({
+      data,
+      accessToken: accessToken,
+    })) as any;
+
+    if (response.data) toast.success("Profile Updated Successfully");
+    if (response.error) toast.error("Operation failed. Try later");
+  };
 
   return (
     <>
@@ -15,7 +37,10 @@ const EditProfileModal = () => {
       <div className="modal">
         <div className="modal-box">
           <h3 className="text-lg font-bold">Edit Profile</h3>
-          <form className="mt-10 flex flex-col gap-5">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-10 flex flex-col gap-5"
+          >
             <div className="relative h-12">
               <label
                 htmlFor=""
@@ -26,7 +51,7 @@ const EditProfileModal = () => {
               <Controller
                 name="name"
                 control={control}
-                defaultValue=""
+                defaultValue={using?.name}
                 render={({ field }) => (
                   <input
                     {...field}
@@ -47,7 +72,7 @@ const EditProfileModal = () => {
               <Controller
                 name="email"
                 control={control}
-                defaultValue=""
+                defaultValue={using?.email}
                 render={({ field }) => (
                   <input
                     {...field}

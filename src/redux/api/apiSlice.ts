@@ -5,7 +5,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5001/api/v1",
   }),
-  tagTypes: ["users"],
+  tagTypes: ["users", "user"],
   endpoints: (builder) => ({
     getAllCategories: builder.query({
       query: (params) => ({
@@ -72,7 +72,19 @@ export const api = createApi({
       invalidatesTags: ["users"],
     }),
 
-    updateUser: builder.mutation({
+    changePayment: builder.mutation({
+      query: ({ data, accessToken }) => ({
+        url: `/users/change-payment`,
+        method: "PATCH",
+        body: data,
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+    updateProfile: builder.mutation({
       query: ({ data, accessToken }) => ({
         url: `/users/update-profile`,
         method: "PATCH",
@@ -81,7 +93,7 @@ export const api = createApi({
           Authorization: accessToken,
         },
       }),
-      invalidatesTags: ["users"],
+      invalidatesTags: ["user"],
     }),
     changePassword: builder.mutation({
       query: ({ data, accessToken }) => ({
@@ -92,7 +104,7 @@ export const api = createApi({
           Authorization: accessToken,
         },
       }),
-      invalidatesTags: ["users"],
+      invalidatesTags: ["user"],
     }),
     deleteUser: builder.mutation({
       query: ({ data, accessToken }) => ({
@@ -114,6 +126,7 @@ export const api = createApi({
           Authorization: accessToken,
         },
       }),
+      providesTags: ["user"],
     }),
   }),
 });
@@ -129,6 +142,7 @@ export const {
   useMakeAdminMutation,
   useRemoveAdminMutation,
   useDeleteUserMutation,
-  useUpdateUserMutation,
+  useUpdateProfileMutation,
+  useChangePaymentMutation,
   useChangePasswordMutation,
 } = api;

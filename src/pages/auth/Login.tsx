@@ -34,8 +34,6 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/dashboard/my-profile";
 
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.user);
-  console.log(user?.name);
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
     const response = (await userLogin(data)) as any;
