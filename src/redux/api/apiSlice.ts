@@ -5,7 +5,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5001/api/v1",
   }),
-  tagTypes: ["wishlist", "books"],
+  tagTypes: ["users"],
   endpoints: (builder) => ({
     getAllCategories: builder.query({
       query: (params) => ({
@@ -18,6 +18,7 @@ export const api = createApi({
         url: `/users?${new URLSearchParams(params).toString()}`,
         method: "Get",
       }),
+      providesTags: ["users"],
     }),
 
     getAllImages: builder.query({
@@ -47,7 +48,39 @@ export const api = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["wishlist"],
+    }),
+    makeAdmin: builder.mutation({
+      query: ({ data, accessToken }) => ({
+        url: `/users/make-admin`,
+        method: "PATCH",
+        body: data,
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["users"],
+    }),
+    removeAdmin: builder.mutation({
+      query: ({ data, accessToken }) => ({
+        url: `/users/remove-admin`,
+        method: "PATCH",
+        body: data,
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["users"],
+    }),
+    deleteUser: builder.mutation({
+      query: ({ data, accessToken }) => ({
+        url: `/users/delete-user`,
+        method: "DELETE",
+        body: data,
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["users"],
     }),
 
     getProfile: builder.query({
@@ -58,7 +91,6 @@ export const api = createApi({
           Authorization: accessToken,
         },
       }),
-      providesTags: ["wishlist"],
     }),
   }),
 });
@@ -71,4 +103,7 @@ export const {
   useGetAllUsersQuery,
   useGetAllImagesQuery,
   useGetAllOrdersQuery,
+  useMakeAdminMutation,
+  useRemoveAdminMutation,
+  useDeleteUserMutation,
 } = api;

@@ -1,9 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { AiOutlineLock } from "react-icons/ai";
 import { MdOutlineLogout } from "react-icons/md";
+import { useAppDispatch } from "../../redux/hook";
+import { clearAccessToken } from "../../redux/slices/accessTokenSlice";
+import { clearUser } from "../../redux/slices/userSlice";
+import toast from "react-hot-toast";
 
 const Actions = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    await dispatch(clearAccessToken());
+    await dispatch(clearUser());
+    navigate("/");
+    toast.success("Logged out successfully");
+  };
+
   return (
     <>
       <div className="flex justify-between items-center mt-10">
@@ -30,13 +43,13 @@ const Actions = () => {
         </Link>
       </div>
       <div className="flex justify-center">
-        <Link
-          to={"/dashboard/edit-profile"}
+        <button
+          onClick={handleLogout}
           className=" flex items-center justify-center gap-3 border-2 hover:bg-gradient border-gray-400 rounded-lg mt-10  p-2 px-5 text-[16px] font-semi  transition-all duration-300 text-red-500"
         >
           <MdOutlineLogout className="text-2xl" />
           Logout
-        </Link>
+        </button>
       </div>
     </>
   );

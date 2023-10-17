@@ -14,6 +14,7 @@ import ManageOrders from "../pages/admin/manageOrders/ManageOrders";
 import PurchaseHistory from "../pages/user/purchaseHistory/PurchaseHistory";
 import PendingOrders from "../pages/user/pendingOrders/PendingOrders";
 import Cart from "../pages/user/cart/Cart";
+import CategoryImages from "../pages/categoryImages/CategoryImages";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
           {
             path: "/",
             element: <Home />,
+          },
+          {
+            path: "/categories/:category",
+            element: <CategoryImages />,
           },
         ],
       },

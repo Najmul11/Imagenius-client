@@ -30,12 +30,13 @@ const DashBoard = () => {
                     <Link to={menu.to}>{menu.tag}</Link>
                   </li>
                 ))}
-              {user?.role === "admin" &&
-                adminMenus.map((menu, index) => (
-                  <li key={index} className="font-semi hover:bg-gradient2">
-                    <Link to={menu.to}>{menu.tag}</Link>
-                  </li>
-                ))}
+              {user?.role === "admin" || user?.role === "super admin"
+                ? adminMenus.map((menu, index) => (
+                    <li key={index} className="font-semi hover:bg-gradient2">
+                      <Link to={menu.to}>{menu.tag}</Link>
+                    </li>
+                  ))
+                : null}
             </ul>
 
             <ul className="lg:flex justify-between items-center absolute bottom-0 py-5 px-8 gap-16 hidden">
