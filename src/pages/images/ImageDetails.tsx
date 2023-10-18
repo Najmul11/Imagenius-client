@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetSingleImageQuery } from "../../redux/api/apiSlice";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { BiShoppingBag } from "react-icons/bi";
@@ -10,11 +10,20 @@ const ImageDetails = () => {
   const { id } = useParams();
   const { data } = useGetSingleImageQuery(id);
 
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div>
       <div className="px-2 pt-3 flex flex-col gap-5">
         <div className="lg:px-20 ">
-          <button className=" bg-black bg-opacity-75 text-white hover:bg-opacity-100 transition-all duration-100   p-4 text-3xl rounded-full  active:bg-gradient2">
+          <button
+            onClick={goBack}
+            className=" bg-black bg-opacity-75 text-white hover:bg-opacity-100 transition-all duration-100   p-4 text-3xl rounded-full  active:bg-gradient2"
+          >
             <MdArrowBackIosNew />
           </button>
         </div>

@@ -1,6 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import { useGetAllImagesQuery } from "../../redux/api/apiSlice";
 import { BiShoppingBag } from "react-icons/bi";
+import { AiFillFilter } from "react-icons/ai";
+import { useState } from "react";
+import Filters from "./Filters";
+import Sort from "./Sort";
 
 type ICategory = {
   _id: string;
@@ -20,11 +24,49 @@ type IImage = {
 
 const Images = () => {
   const { category } = useParams();
-  const { data } = useGetAllImagesQuery(undefined);
+  const [showFilters, setShowFilters] = useState<boolean>(false);
+  const [selectedSortOption, setSelectedSortOption] =
+    useState<string>("newest");
+
+  const sortOrderMap: { [key: string]: string } = {
+    newest: "desc",
+    lowToHigh: "asc",
+    highToLow: "desc",
+  };
+
+  const sortOrder = sortOrderMap[selectedSortOption] || "desc";
+
+  const { data } = useGetAllImagesQuery({
+    category: category,
+    sortBy: selectedSortOption === "newest" ? "createdAt" : "price",
+    sortOrder: sortOrder,
+    limit: 12,
+  });
 
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 px-4 my-20">
+    <div className="my-10 flex flex-col gap-5">
+      <div className="px-4 flex justify-between">
+        <Sort
+          selectedSortOption={selectedSortOption}
+          setSelectedSortOption={setSelectedSortOption}
+        />
+        <div className="lg:flex gap-5 items-center hidden">
+          <hr className="w-20 border-2 border-black rounded" />
+          <p className="font-bold text-lg">
+            {data?.data.length} Images For "{category}"
+          </p>
+          <hr className="w-20 border-2 border-black rounded" />
+        </div>
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className=" flex gap-2 items-center bg-black text-white  transition-all duration-100 py-3 px-4 text-sm font-semi rounded-3xl  active:bg-gradient2"
+        >
+          <AiFillFilter className /> Filters
+        </button>
+      </div>
+      {showFilters && <Filters />}
+
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 px-4 ">
         {data?.data?.map((image: IImage) => (
           <div key={image._id}>
             <Link to={`/images/${image?._id}`}>

@@ -35,7 +35,7 @@ const AddImageModal = () => {
 
   useEffect(() => {
     if (data?.data && data.data.length > 0) {
-      setValue("category", data.data[0]._id);
+      setValue("category", data.data[0].category);
     }
   }, [data, setValue]);
 
@@ -161,7 +161,7 @@ const AddImageModal = () => {
                       className="absolute top-0 left-0 px-8 border bg-transparent rounded-lg h-full w-full focus:outline-none"
                     >
                       {data?.data.map((option: IOption) => (
-                        <option key={option._id} value={option?._id}>
+                        <option key={option._id} value={option?.category}>
                           {option?.category}
                         </option>
                       ))}

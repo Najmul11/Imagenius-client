@@ -27,7 +27,7 @@ export type IImage = {
 } | null;
 
 const ManageImages = () => {
-  const { data } = useGetAllImagesQuery(undefined);
+  const { data } = useGetAllImagesQuery({ limit: 100 });
 
   const { user: usingAs } = useAppSelector((state) => state.user);
 
@@ -39,7 +39,7 @@ const ManageImages = () => {
   };
 
   return (
-    <div className="lg:w-4/5 mx-auto px-2">
+    <div className="lg:w-4/5 mx-auto px-2 mb-10">
       <div className="mb-10 ">
         <h2 className="text-center rounded-lg py-2">
           <span className="bg-gradient2 px-2 font-semi rounded-lg text-red-500">

@@ -3,7 +3,7 @@ import { ICategory } from "../popular/SingleCategory";
 import SingleSearch from "./SingleSearch";
 
 const PopularSearches = () => {
-  const { data } = useGetAllCategoriesQuery(undefined);
+  const { data } = useGetAllCategoriesQuery({ sortBy: "createdAt", limit: 8 });
 
   return (
     <div className="flex flex-col gap-10 pb-10">

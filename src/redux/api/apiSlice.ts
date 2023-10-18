@@ -169,6 +169,28 @@ export const api = createApi({
       }),
       invalidatesTags: ["images"],
     }),
+    // getImages: builder.query({
+    //   query: ({ categories, searchTerm, page }) => {
+    //     const queryParams: string[] = [];
+
+    //     if (!categories.length && !searchTerm) {
+    //       queryParams.push(`page=${encodeURIComponent(page)}`);
+    //     }
+
+    //     if (searchTerm)
+    //       queryParams.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+
+    //     if (categories.length > 0) {
+    //       categories.forEach((category: string) => {
+    //         queryParams.push(`category=${encodeURIComponent(category)}`);
+    //       });
+    //     }
+    //     const url = `/images?${queryParams.join("&")}`;
+
+    //     return url;
+    //   },
+    //   providesTags: ["images"],
+    // }),
   }),
 });
 
@@ -190,4 +212,5 @@ export const {
   useEditImageMutation,
   useDeleteImageMutation,
   useGetSingleImageQuery,
+  // useGetImagesQuery,
 } = api;

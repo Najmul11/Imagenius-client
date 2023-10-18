@@ -2,7 +2,7 @@ import { useGetAllCategoriesQuery } from "../../../redux/api/apiSlice";
 import SingleCategory, { ICategory } from "./SingleCategory";
 
 const PopularCategories = () => {
-  const { data } = useGetAllCategoriesQuery(undefined);
+  const { data } = useGetAllCategoriesQuery({ popular: true });
 
   return (
     <div className="flex flex-col gap-10">
