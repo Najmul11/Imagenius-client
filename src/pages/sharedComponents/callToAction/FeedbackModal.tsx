@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useAppSelector } from "../../redux/hook";
-import { IUser } from "../auth/Login";
-import { useCreateFeedbackMutation } from "../../redux/api/apiSlice";
+import { useAppSelector } from "../../../redux/hook";
+import { IUser } from "../../auth/Login";
+import { useCreateFeedbackMutation } from "../../../redux/api/apiSlice";
 
 type IFormData = {
   email: string;
@@ -13,7 +13,7 @@ type IFormData = {
 };
 
 const FeedbackModal = ({ user }: { user: IUser }) => {
-  const { control, handleSubmit } = useForm<IFormData>();
+  const { control, handleSubmit, reset } = useForm<IFormData>();
   const { accessToken } = useAppSelector((state) => state.accessToken);
 
   const [createFeedback] = useCreateFeedbackMutation();
@@ -25,7 +25,10 @@ const FeedbackModal = ({ user }: { user: IUser }) => {
     };
     const response = (await createFeedback({ payload, accessToken })) as any;
 
-    if (response.data) toast.success("Thanks for the feedback");
+    if (response.data) {
+      toast.success("Thanks for the feedback");
+      reset();
+    }
     if (response.error) toast.error("Operation failed. Try later");
   };
 

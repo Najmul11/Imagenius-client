@@ -7,7 +7,8 @@ import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { setUser } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hook";
-import FeedbackModal from "./pages/myProfile/FeedbackModal";
+import CallToActions from "./pages/sharedComponents/callToAction/CallToActions";
+import FeedbackModal from "./pages/sharedComponents/callToAction/FeedbackModal";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ function App() {
   }, [dispatch]);
   return (
     <div>
+      <CallToActions />
       <FeedbackModal user={user} />
       <ScrollRestoration
         getKey={(location) => {
@@ -46,8 +48,8 @@ function App() {
           borderRadius: "50%",
           height: "50px",
           width: "50px",
-          bottom: "69px",
-          right: "75px",
+          bottom: "130px",
+          right: "20px",
         }}
       />
 
