@@ -1,10 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
-import { useGetAllOrdersQuery } from "../../../redux/api/apiSlice";
+import {
+  useCancelOrderMutation,
+  useGetAllOrdersQuery,
+} from "../../../redux/api/apiSlice";
 import { IOrder } from "../../admin/manageOrders/ManageOrders";
 import { FiDelete } from "react-icons/fi";
+import { useAppSelector } from "../../../redux/hook";
+import toast from "react-hot-toast";
 
 const PendingOrders = () => {
-  const { data } = useGetAllOrdersQuery(undefined);
+  const { data } = useGetAllOrdersQuery({ status: "pending" });
+  const [cancelOrder] = useCancelOrderMutation();
+
+  const { accessToken } = useAppSelector((state) => state.accessToken);
+
+  const handleCancel = async (orderId: string) => {
+    const response = (await cancelOrder({ orderId, accessToken })) as any;
+    if (response.data) toast.success("Order cancelled");
+    if (response.error) toast.error("Something went wrong");
+  };
 
   return (
     <div className="overflow-x-auto w-3/5 mx-auto my-20">
@@ -37,7 +52,10 @@ const PendingOrders = () => {
               </td>
               <td>
                 <div className=" flex justify-center">
-                  <button className=" flex items-center   gap-3  rounded-xl    font-semi  transition-all duration-300 hover:text-red-500 bg-gradient2 bg-opacity-50 px-2 py-1 ">
+                  <button
+                    onClick={() => handleCancel(order._id)}
+                    className=" flex items-center   gap-3  rounded-xl    font-semi  transition-all duration-300 hover:text-red-500 bg-gradient2 bg-opacity-50 px-2 py-1 "
+                  >
                     <FiDelete className="text-red-500" />
                     Cancel Order
                   </button>

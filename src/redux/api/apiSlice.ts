@@ -192,6 +192,16 @@ export const api = createApi({
       }),
       invalidatesTags: ["orders"],
     }),
+    cancelOrder: builder.mutation({
+      query: ({ orderId, accessToken }) => ({
+        url: `/orders/cancel-order/${orderId}`,
+        method: "PATCH",
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["orders"],
+    }),
   }),
 });
 
@@ -215,4 +225,5 @@ export const {
   useGetSingleImageQuery,
   useCreateFeedbackMutation,
   useCreateOrderMutation,
+  useCancelOrderMutation,
 } = api;

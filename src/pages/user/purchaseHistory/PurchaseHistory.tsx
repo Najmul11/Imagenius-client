@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import { IOrder } from "../../admin/manageOrders/ManageOrders";
 
 const PurchaseHistory = () => {
-  const { data } = useGetAllOrdersQuery(undefined);
+  const { data } = useGetAllOrdersQuery({
+    status: "cancelled" || "completed",
+    limit: 100,
+  });
 
   return (
     <div className="overflow-x-auto w-3/5 mx-auto my-20">
