@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import brand from "../../../assets/brand.png";
 import ResponsiveHeader from "./ResponsiveHeader";
 import { useAppSelector } from "../../../redux/hook";
+import { MdOutlineFeed } from "react-icons/md";
 
 const Header = ({ menu }: { menu: string }) => {
   const { user } = useAppSelector((state) => state.user);
@@ -39,6 +40,16 @@ const Header = ({ menu }: { menu: string }) => {
         )}
       </div>
       <ResponsiveHeader />
+      {user && (
+        <div className="flex justify-end mx-4 fixed bottom-[70px] right-1 z-[110]">
+          <label
+            htmlFor="feedback"
+            className=" flex items-center justify-center  bg-black active:bg-gradient2 text-white  rounded-full h-[50px] w-[50px]  shadow-line cursor-pointer "
+          >
+            <MdOutlineFeed className="text-3xl" />
+          </label>
+        </div>
+      )}
     </div>
   );
 };

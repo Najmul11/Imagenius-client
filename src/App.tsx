@@ -6,10 +6,12 @@ import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { setUser } from "./redux/slices/userSlice";
-import { useAppDispatch } from "./redux/hook";
+import { useAppDispatch, useAppSelector } from "./redux/hook";
+import FeedbackModal from "./pages/myProfile/FeedbackModal";
 
 function App() {
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -26,6 +28,7 @@ function App() {
   }, [dispatch]);
   return (
     <div>
+      <FeedbackModal user={user} />
       <ScrollRestoration
         getKey={(location) => {
           return location.pathname;
@@ -43,6 +46,8 @@ function App() {
           borderRadius: "50%",
           height: "50px",
           width: "50px",
+          bottom: "70px",
+          right: "75px",
         }}
       />
 

@@ -15,6 +15,9 @@ export default {
       height: {
         banner: "500px",
       },
+      boxShadow: {
+        line: "0px 2px  rgba(255, 255, 255, .6)",
+      },
 
       fontWeight: {
         semi: "500",

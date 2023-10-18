@@ -2,7 +2,6 @@ import { useAppSelector } from "../../redux/hook";
 import bkash from "../../assets/bkash.png";
 import nagad from "../../assets/nagad.png";
 import binance from "../../assets/binance.png";
-
 import avatar from "../../assets/avatar.png";
 import useTitle from "../../hooks/useTitle";
 import Actions from "./Actions";
@@ -22,7 +21,7 @@ const MyProfile = () => {
   if (data?.data) using = data?.data;
 
   return (
-    <div className="xl:w-1/2 lg:w-2/3 md:w-4/5 mx-auto  my-20 ">
+    <div className="xl:w-1/2 lg:w-2/3 md:w-4/5 mx-auto  my-10 ">
       <div className="flex flex-col gap-10 ">
         <div className="flex mx-auto justify-center ">
           <img
@@ -53,9 +52,13 @@ const MyProfile = () => {
           <Actions />
         </div>
       </div>
-      <EditProfileModal />
-      <ChangePaymentModal />
-      <ChangePasswordModal />
+      {user && (
+        <>
+          <EditProfileModal />
+          <ChangePaymentModal />
+          <ChangePasswordModal />
+        </>
+      )}
     </div>
   );
 };
