@@ -16,6 +16,7 @@ import PendingOrders from "../pages/user/pendingOrders/PendingOrders";
 import Cart from "../pages/user/cart/Cart";
 import Images from "../pages/images/Images";
 import ImageDetails from "../pages/images/ImageDetails";
+import SearchImages from "../pages/images/SearchImages";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
           {
             path: "/categories/:category",
             element: <Images />,
+          },
+          {
+            path: "/search/:search",
+            element: <SearchImages />,
           },
         ],
       },

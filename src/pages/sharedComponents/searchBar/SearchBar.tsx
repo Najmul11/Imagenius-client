@@ -1,8 +1,18 @@
 import { AiOutlineSearch } from "react-icons/ai";
-import { useState, useEffect } from "react";
+import { useState, useEffect, KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [py, setPy] = useState<number>(5);
+  const [search, setSearch] = useState<string>("");
+
+  const navigate = useNavigate();
+
+  const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      navigate(`/search/${search}`);
+    }
+  };
 
   const updatePadding = () => {
     const scrollY = window.scrollY;
@@ -29,6 +39,8 @@ const SearchBar = () => {
         <div className="w-full lg:w-1/2 relative ">
           <input
             type="text"
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyUp={(e) => handleSearch(e)}
             placeholder="Search the largest collection of Bangladeshi images"
             className={`border border-black py-${py} bg-white w-full px-8  lg:px-12 focus:outline-none text-md transition-all duration-400 ease-in-out placeholder:text-gray-500 placeholder:font-semi placeholder:text-sm  `}
           />
