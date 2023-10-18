@@ -9,6 +9,7 @@ import AddImageModal from "./AddImageModal";
 import EditImageModal from "./EditImageModal";
 import { ChangeEvent, useState } from "react";
 import DeleteModal from "./DeleteModal";
+import Pagination from "../../sharedComponents/Pagination/Pagination";
 
 export type ICategory = {
   _id: string;
@@ -27,7 +28,9 @@ export type IImage = {
 } | null;
 
 const ManageImages = () => {
-  const { data } = useGetAllImagesQuery({ limit: 100 });
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { data } = useGetAllImagesQuery({ limit: 24, page: currentPage });
 
   const { user: usingAs } = useAppSelector((state) => state.user);
 
@@ -36,6 +39,9 @@ const ManageImages = () => {
   const handleModalData = (image: IImage, e: ChangeEvent) => {
     e.stopPropagation();
     setImage(image);
+  };
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -91,6 +97,13 @@ const ManageImages = () => {
             </div>
           </Link>
         ))}
+      </div>
+      <div className="pt-20  mx-auto w-3/5">
+        <Pagination
+          totalPages={Math.ceil(data?.meta?.total / 24)}
+          handlePageChange={handlePageChange}
+          currentPage={currentPage}
+        />
       </div>
       <AddImageModal />
       {image && <EditImageModal image={image} />}

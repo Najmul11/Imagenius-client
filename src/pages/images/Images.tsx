@@ -5,6 +5,7 @@ import { AiFillFilter } from "react-icons/ai";
 import { useState } from "react";
 import Filters from "./Filters";
 import Sort from "./Sort";
+import Pagination from "../sharedComponents/Pagination/Pagination";
 
 type ICategory = {
   _id: string;
@@ -25,6 +26,8 @@ type IImage = {
 const Images = () => {
   const { category } = useParams();
   const [showFilters, setShowFilters] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [selectedSortOption, setSelectedSortOption] =
     useState<string>("newest");
 
@@ -40,8 +43,12 @@ const Images = () => {
     category: category,
     sortBy: selectedSortOption === "newest" ? "createdAt" : "price",
     sortOrder: sortOrder,
-    limit: 12,
+    page: currentPage,
   });
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="my-10 flex flex-col gap-5">
@@ -93,6 +100,13 @@ const Images = () => {
             </div>
           </div>
         ))}
+      </div>
+      <div className="pt-20  mx-auto w-3/5">
+        <Pagination
+          totalPages={Math.ceil(data?.meta?.total / 12)}
+          handlePageChange={handlePageChange}
+          currentPage={currentPage}
+        />
       </div>
     </div>
   );
