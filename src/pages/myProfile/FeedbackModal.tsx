@@ -13,8 +13,6 @@ type IFormData = {
 };
 
 const FeedbackModal = ({ user }: { user: IUser }) => {
-  console.log(user);
-
   const { control, handleSubmit } = useForm<IFormData>();
   const { accessToken } = useAppSelector((state) => state.accessToken);
 

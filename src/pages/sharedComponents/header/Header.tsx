@@ -40,7 +40,7 @@ const Header = ({ menu }: { menu: string }) => {
         )}
       </div>
       <ResponsiveHeader />
-      {user && (
+      {user && user.role === "user" && (
         <div className="flex justify-end mx-4 fixed bottom-[70px] right-1 z-[110]">
           <label
             htmlFor="feedback"

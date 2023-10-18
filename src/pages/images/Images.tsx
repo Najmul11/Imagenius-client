@@ -6,21 +6,17 @@ import { useState } from "react";
 import Filters from "./Filters";
 import Sort from "./Sort";
 import Pagination from "../sharedComponents/Pagination/Pagination";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { addToCart } from "../../redux/slices/cartSlice";
+import toast from "react-hot-toast";
 
-type ICategory = {
-  _id: string;
-  category: string;
-  image: string;
-  popular: boolean;
-};
-
-type IImage = {
+export type IImage = {
   _id: string;
   image: string;
   publicId: string;
   title: string;
   price: number;
-  category: ICategory;
+  category: string;
 };
 
 const Images = () => {
@@ -30,6 +26,8 @@ const Images = () => {
 
   const [selectedSortOption, setSelectedSortOption] =
     useState<string>("newest");
+
+  const dispatch = useAppDispatch();
 
   const sortOrderMap: { [key: string]: string } = {
     newest: "desc",
@@ -45,6 +43,15 @@ const Images = () => {
     sortOrder: sortOrder,
     page: currentPage,
   });
+
+  const { cart } = useAppSelector((state) => state.cart);
+
+  const handleAddToCart = async (image: IImage) => {
+    const existInCart = cart.find((i) => i._id === image._id);
+    if (existInCart) return toast.error("Image already in cart");
+    await dispatch(addToCart(image));
+    toast.success("Image added to cart");
+  };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -94,7 +101,10 @@ const Images = () => {
                   {image?.title}
                 </span>
               </Link>
-              <button className="text-white text-2xl hover:text-blue-500 w-[4%]">
+              <button
+                onClick={() => handleAddToCart(image)}
+                className="text-white text-2xl hover:text-blue-500 w-[4%] active:text-gradient2"
+              >
                 <BiShoppingBag />
               </button>
             </div>

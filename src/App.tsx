@@ -46,7 +46,7 @@ function App() {
           borderRadius: "50%",
           height: "50px",
           width: "50px",
-          bottom: "70px",
+          bottom: "69px",
           right: "75px",
         }}
       />

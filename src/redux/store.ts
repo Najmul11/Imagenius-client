@@ -3,12 +3,14 @@ import accessTokenSlice from "./slices/accessTokenSlice";
 import userSlice from "./slices/userSlice";
 import darkModeSlice from "./slices/darkModeSlice";
 import { api } from "./api/apiSlice";
+import cartSlice from "./slices/cartSlice";
 
 const store = configureStore({
   reducer: {
     accessToken: accessTokenSlice,
     user: userSlice,
     darkMode: darkModeSlice,
+    cart: cartSlice,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

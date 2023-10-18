@@ -17,6 +17,8 @@ import Cart from "../pages/user/cart/Cart";
 import Images from "../pages/images/Images";
 import ImageDetails from "../pages/images/ImageDetails";
 import SearchImages from "../pages/images/SearchImages";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoutes from "./AdminRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +45,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <DashBoard />,
+        element: (
+          <PrivateRoute>
+            <DashBoard />
+          </PrivateRoute>
+        ),
         children: [
           {
             path: "/dashboard/my-profile",
@@ -64,19 +70,35 @@ export const router = createBrowserRouter([
 
           {
             path: "/dashboard/admin/order-management",
-            element: <ManageOrders />,
+            element: (
+              <AdminRoutes>
+                <ManageOrders />
+              </AdminRoutes>
+            ),
           },
           {
             path: "/dashboard/admin/category-management",
-            element: <ManageCategories />,
+            element: (
+              <AdminRoutes>
+                <ManageCategories />
+              </AdminRoutes>
+            ),
           },
           {
             path: "/dashboard/admin/image-management",
-            element: <ManageImages />,
+            element: (
+              <AdminRoutes>
+                <ManageImages />
+              </AdminRoutes>
+            ),
           },
           {
             path: "/dashboard/admin/user-management",
-            element: <ManageUsers />,
+            element: (
+              <AdminRoutes>
+                <ManageUsers />
+              </AdminRoutes>
+            ),
           },
         ],
       },

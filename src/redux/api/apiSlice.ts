@@ -5,7 +5,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5001/api/v1",
   }),
-  tagTypes: ["users", "user", "images"],
+  tagTypes: ["users", "user", "images", "orders"],
   endpoints: (builder) => ({
     getAllCategories: builder.query({
       query: (params) => ({
@@ -33,6 +33,7 @@ export const api = createApi({
         url: `/orders?${new URLSearchParams(params).toString()}`,
         method: "Get",
       }),
+      providesTags: ["orders"],
     }),
     getSingleImage: builder.query({
       query: (params) => ({
@@ -180,6 +181,17 @@ export const api = createApi({
       }),
       invalidatesTags: ["images"],
     }),
+    createOrder: builder.mutation({
+      query: ({ payload, accessToken }) => ({
+        url: `/orders/create-order`,
+        method: "POST",
+        body: payload,
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["orders"],
+    }),
   }),
 });
 
@@ -202,4 +214,5 @@ export const {
   useDeleteImageMutation,
   useGetSingleImageQuery,
   useCreateFeedbackMutation,
+  useCreateOrderMutation,
 } = api;

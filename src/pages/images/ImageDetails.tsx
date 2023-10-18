@@ -5,6 +5,10 @@ import { BiShoppingBag } from "react-icons/bi";
 import SimilarImages from "./SimilarImages";
 import Terms from "./Terms";
 import Footer from "../sharedComponents/footer/Footer";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { IImage } from "./Images";
+import toast from "react-hot-toast";
+import { addToCart } from "../../redux/slices/cartSlice";
 
 const ImageDetails = () => {
   const { id } = useParams();
@@ -14,6 +18,16 @@ const ImageDetails = () => {
 
   const goBack = () => {
     navigate(-1);
+  };
+  const dispatch = useAppDispatch();
+
+  const { cart } = useAppSelector((state) => state.cart);
+
+  const handleAddToCart = async (image: IImage) => {
+    const existInCart = cart.find((i) => i._id === image._id);
+    if (existInCart) return toast.error("Image already in cart");
+    await dispatch(addToCart(image));
+    toast.success("Image added to cart");
   };
 
   return (
@@ -42,7 +56,10 @@ const ImageDetails = () => {
                 {data?.data?.title}
               </span>
             </p>
-            <button className="text-white text-3xl hover:text-blue-500 ">
+            <button
+              onClick={() => handleAddToCart(data)}
+              className="text-white text-3xl hover:text-blue-500 active:text-gradient2"
+            >
               <BiShoppingBag />
             </button>
           </div>
