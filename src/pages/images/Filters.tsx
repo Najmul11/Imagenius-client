@@ -1,17 +1,26 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useGetAllCategoriesQuery } from "../../redux/api/apiSlice";
 import { ICategory } from "../home/popular/SingleCategory";
 
 const Filters = () => {
   const { data } = useGetAllCategoriesQuery(undefined);
   return (
-    <div className=" bg-gradient2 mx-4 py-10 rounded-xl ">
-      <div className="grid lg:grid-cols-4 lg:w-3/5 mx-auto gap-5">
+    <div className=" bg-gradient2 mx-4 py-10 rounded-lg ">
+      <div className="grid grid-cols-3 lg:grid-cols-4 lg:w-3/5 mx-auto  gap-5 justify-items-center">
         {data?.data.map((category: ICategory) => (
           <div key={category?._id}>
-            <Link to={`/categories/${category?.category}`}>
+            <NavLink
+              to={`/categories/${category?.category}`}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "bg-black text-white font-semi px-2 py-1 text-sm rounded-xl"
+                  : "text-sm hover:font-semi"
+              }
+            >
               {category?.category}
-            </Link>
+            </NavLink>
           </div>
         ))}
       </div>

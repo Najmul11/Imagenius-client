@@ -40,6 +40,9 @@ function App() {
           backgroundColor: "black",
           zIndex: 100,
           boxShadow: "0px 2px  rgba(255, 255, 255, .6)",
+          borderRadius: "50%",
+          height: "50px",
+          width: "50px",
         }}
       />
 

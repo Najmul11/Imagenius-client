@@ -17,7 +17,7 @@ type IImage = {
   category: ICategory;
 };
 const SimilarImages = () => {
-  const { data } = useGetAllImagesQuery(undefined);
+  const { data } = useGetAllImagesQuery({ limit: 8 });
 
   return (
     <div className="mt-10 px-4">

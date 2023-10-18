@@ -1,9 +1,9 @@
-import { AiOutlineArrowUp } from "react-icons/ai";
+import { IoIosArrowUp } from "react-icons/io";
 
 const ScrollUpButton = () => {
   return (
     <div className={`rounded-md flex items-center justify-center  `}>
-      <AiOutlineArrowUp className={"text-2xl text-gradient2"} />
+      <IoIosArrowUp className={"text-3xl text-gradient2"} />
     </div>
   );
 };
