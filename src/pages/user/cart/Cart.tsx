@@ -6,14 +6,11 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { IImage } from "../../images/Images";
 import { clearCart, removeFromCart } from "../../../redux/slices/cartSlice";
 import toast from "react-hot-toast";
-import { useCreateOrderMutation } from "../../../redux/api/apiSlice";
-import { useNavigate } from "react-router-dom";
+import CheckoutModal from "./CheckoutModal";
 
 const Cart = () => {
   const { cart } = useAppSelector((state) => state.cart);
-  const { accessToken } = useAppSelector((state) => state.accessToken);
   const dispatch = useAppDispatch();
-  const [createOrder] = useCreateOrderMutation();
 
   const handleRemoveFromCart = async (image: IImage) => {
     const newCart = cart.filter((i) => i._id !== image._id);
@@ -26,19 +23,6 @@ const Cart = () => {
   };
 
   const totalPrice = cart.reduce((total, image) => total + image.price, 0);
-
-  const navigate = useNavigate();
-
-  const handleCheckout = async () => {
-    const response = (await createOrder({ payload: cart, accessToken })) as any;
-    if (response.data) {
-      toast.success("Your order is on process. Check pending Orders");
-      await dispatch(clearCart());
-    }
-
-    if (response.error) toast.error("Something went weong. Try later");
-    navigate("/dashboard/pending-orders");
-  };
 
   return (
     <div className="w-2/5  my-20 mx-auto">
@@ -74,15 +58,16 @@ const Cart = () => {
           <p className="text-sm">
             Total - <span className="font-semi ">{totalPrice}$</span>{" "}
           </p>
-          <button
-            onClick={handleCheckout}
+          <label
+            htmlFor="checkout"
             className=" flex items-center gap-3  rounded-lg font-semi text-sm  transition-all duration-300 hover:bg-blue-100 bg-gradient2 bg- px-2 py-1 "
           >
             <IoBagCheckOutline className="text-blue-500" />
             Checkout
-          </button>
+          </label>
         </div>
       </div>
+      <CheckoutModal />
     </div>
   );
 };

@@ -59,9 +59,3 @@ const CallToActions = () => {
 };
 
 export default CallToActions;
-
-// fixed bottom-[70px] right-36 z-[111]
-
-// fixed bottom-[70px] right-5 z-[111]
-
-// fixed bottom-[70px] right-16 z-[110]
