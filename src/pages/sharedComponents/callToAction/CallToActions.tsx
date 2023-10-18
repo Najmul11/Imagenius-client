@@ -22,7 +22,7 @@ const CallToActions = () => {
 
   return (
     <div className="fixed bottom-[70px] lg:bottom-5 right-5 z-[110] flex  gap-3">
-      {user && (
+      {user && user.role === "user" && (
         <Link to={"/dashboard/cart"} className="indicator ">
           <span className="indicator-item badge bg-gray-600 text-white ">
             {cart.length}

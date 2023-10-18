@@ -202,6 +202,16 @@ export const api = createApi({
       }),
       invalidatesTags: ["orders"],
     }),
+    deliverOrder: builder.mutation({
+      query: ({ orderId, accessToken }) => ({
+        url: `/orders/deliver-order/${orderId}`,
+        method: "PATCH",
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["orders"],
+    }),
   }),
 });
 
@@ -226,4 +236,5 @@ export const {
   useCreateFeedbackMutation,
   useCreateOrderMutation,
   useCancelOrderMutation,
+  useDeliverOrderMutation,
 } = api;

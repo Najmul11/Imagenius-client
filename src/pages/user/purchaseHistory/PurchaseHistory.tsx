@@ -4,7 +4,6 @@ import { IOrder } from "../../admin/manageOrders/ManageOrders";
 
 const PurchaseHistory = () => {
   const { data } = useGetAllOrdersQuery({
-    status: "cancelled" || "completed",
     limit: 100,
   });
 
