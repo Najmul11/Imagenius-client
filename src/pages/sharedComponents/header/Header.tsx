@@ -32,7 +32,7 @@ const Header = ({ menu }: { menu: string }) => {
         ) : (
           <Link
             to={"/login"}
-            className="font-semi bg-black text-white px-5 py-1 rounded-full hover:shadow-lg hover:bg-opacity-80"
+            className="font-semi bg-black text-white px-5 py-2 rounded-full hover:shadow-lg hover:bg-opacity-80"
           >
             Sign In
           </Link>

@@ -39,23 +39,17 @@ const DashBoard = () => {
                 : null}
             </ul>
 
-            <ul className="lg:flex justify-between items-center absolute bottom-0 py-5 px-8 gap-16 hidden">
-              <li>
-                <Link to={"/dashboard/my-profile"} className="cursor-pointer">
+            <ul className="lg:flex justify-center items-center absolute bottom-0 py-5 px-8 gap-16 hidden w-80">
+              <li className="">
+                <Link
+                  to={"/dashboard/my-profile"}
+                  className="cursor-pointer bg-red-300"
+                >
                   <img
                     src={user?.photoUrl}
                     alt=""
                     className="w-10 h-10 rounded-full"
                   />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={"/dashboard/edit-profile"}
-                  className=" flex items-center gap-3 bg-gradient bg-opacity-50 hover:bg-opacity-100  rounded-lg  p-2 px-5 text-[16px] font-semi  transition-all duration-300"
-                >
-                  <FaEdit className="text-xl" />
-                  Edit Profile
                 </Link>
               </li>
             </ul>

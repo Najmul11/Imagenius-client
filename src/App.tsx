@@ -13,6 +13,7 @@ import {
 import { useAppDispatch, useAppSelector } from "./redux/hook";
 import CallToActions from "./pages/sharedComponents/callToAction/CallToActions";
 import FeedbackModal from "./pages/sharedComponents/callToAction/FeedbackModal";
+import ScrollTopAuto from "./pages/sharedComponents/scrollToTopAuto/ScrollTopAuto";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ function App() {
     <div>
       <CallToActions />
       <FeedbackModal user={user} />
+      <ScrollTopAuto />
       <ScrollRestoration
         getKey={(location) => {
           return location.pathname;
