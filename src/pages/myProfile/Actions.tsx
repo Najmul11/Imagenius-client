@@ -23,21 +23,21 @@ const Actions = () => {
       <div className="flex flex-col md:flex-row gap-5 justify-center   mt-10 ">
         <label
           htmlFor="edit-profile"
-          className=" flex items-center gap-3 bg-gradient bg-opacity-50 hover:bg-opacity-100  rounded-lg  p-2 px-5 text-[16px] font-semi  transition-all duration-300"
+          className=" flex items-center gap-3 bg-gradient bg-opacity-50 hover:bg-opacity-100  rounded-lg  p-2 px-5 text-[16px] font-semi  transition-all duration-300 cursor-pointer"
         >
           <FaEdit className="text-2xl" />
           Edit Profile
         </label>
         <label
           htmlFor="change-payment"
-          className=" flex items-center gap-3 bg-gradient bg-opacity-50 hover:bg-opacity-100  rounded-lg  p-2 px-5 text-[16px] font-semi  transition-all duration-300"
+          className=" flex items-center gap-3 bg-gradient bg-opacity-50 hover:bg-opacity-100  rounded-lg  p-2 px-5 text-[16px] font-semi  transition-all duration-300 cursor-pointer"
         >
           <FaEdit className="text-2xl" />
           Change Payment Method
         </label>
         <label
           htmlFor="change-password"
-          className=" flex items-center gap-3 bg-gradient bg-opacity-50 hover:bg-opacity-100  rounded-lg  p-2 px-5 text-[16px] font-semi  transition-all duration-300"
+          className=" flex items-center gap-3 bg-gradient bg-opacity-50 hover:bg-opacity-100  rounded-lg  p-2 px-5 text-[16px] font-semi  transition-all duration-300 cursor-pointer"
         >
           <AiOutlineLock className="text-2xl" />
           Change Password
@@ -46,7 +46,7 @@ const Actions = () => {
       <div className="flex justify-center">
         <button
           onClick={handleLogout}
-          className=" flex items-center justify-center gap-3 border-2 hover:bg-gradient border-gray-400 rounded-lg mt-10  p-2 px-5 text-[16px] font-semi  transition-all duration-300 text-red-500"
+          className=" flex items-center justify-center gap-3 border-2 hover:bg-gradient border-gray-400 rounded-lg mt-10  p-2 px-5 text-[16px] font-semi  transition-all duration-300 text-red-500 "
         >
           <MdOutlineLogout className="text-2xl" />
           Logout

@@ -9,6 +9,8 @@ import { setAccessToken } from "../../redux/slices/accessTokenSlice";
 import jwtDecode from "jwt-decode";
 import { setUser } from "../../redux/slices/userSlice";
 import toast from "react-hot-toast";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "../../yup/Schemas";
 
 type IFormData = {
   email: string;
@@ -27,7 +29,9 @@ const Login = () => {
   useTitle("Login");
   const [userLogin, { isLoading }] = useUserLoginMutation();
 
-  const { handleSubmit, control } = useForm<IFormData>();
+  const { handleSubmit, control, formState } = useForm<IFormData>({
+    resolver: yupResolver(loginSchema),
+  });
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -64,8 +68,14 @@ const Login = () => {
             </p>
             <div className="flex flex-col gap-10">
               <div className="relative h-12 w-96">
-                <label className="absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi">
-                  Email*
+                <label
+                  className={`absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi ${
+                    formState.errors.email ? "text-red-500" : ""
+                  }`}
+                >
+                  {formState.errors.email
+                    ? formState.errors.email.message
+                    : "Email*"}
                 </label>
                 <Controller
                   name="email"
@@ -83,8 +93,14 @@ const Login = () => {
               </div>
               <div>
                 <div className="relative h-12">
-                  <label className="absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi">
-                    Password*
+                  <label
+                    className={`absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi ${
+                      formState.errors.password ? "text-red-500" : ""
+                    }`}
+                  >
+                    {formState.errors.password
+                      ? formState.errors.password.message
+                      : "Password*"}
                   </label>
                   <Controller
                     name="password"

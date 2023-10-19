@@ -5,9 +5,11 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import brand from "../../assets/brand.png";
 import useTitle from "../../hooks/useTitle";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import avatar from "../../assets/avatar.png";
 import { useCreateUserMutation } from "../../redux/api/apiSlice";
 import toast from "react-hot-toast";
+import { registerSchema } from "../../yup/Schemas";
 
 type IFormData = {
   email: string;
@@ -21,7 +23,8 @@ type IFormData = {
 const Register = () => {
   useTitle("Register");
   const [agreeToTC, setAgreeToTC] = useState<boolean>(false);
-  const { control, handleSubmit, setValue, watch } = useForm<IFormData>();
+  const { control, handleSubmit, setValue, watch, formState } =
+    useForm<IFormData>({ resolver: yupResolver(registerSchema) });
   const [createUser, { isLoading }] = useCreateUserMutation();
 
   const navigate = useNavigate();
@@ -96,9 +99,13 @@ const Register = () => {
               <div className="relative h-12 w-96">
                 <label
                   htmlFor=""
-                  className="absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi"
+                  className={`absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi ${
+                    formState.errors.name ? "text-red-500" : ""
+                  }`}
                 >
-                  Name*
+                  {formState.errors.name
+                    ? formState.errors.name.message
+                    : "Name*"}
                 </label>
                 <Controller
                   name="name"
@@ -117,9 +124,13 @@ const Register = () => {
               <div className="relative h-12 w-96">
                 <label
                   htmlFor=""
-                  className="absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi"
+                  className={`absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi ${
+                    formState.errors.email ? "text-red-500" : ""
+                  }`}
                 >
-                  Email*
+                  {formState.errors.email
+                    ? formState.errors.email.message
+                    : "Email*"}
                 </label>
                 <Controller
                   name="email"
@@ -138,9 +149,13 @@ const Register = () => {
               <div className="relative h-12 ">
                 <label
                   htmlFor=""
-                  className="absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi"
+                  className={`absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi ${
+                    formState.errors.password ? "text-red-500" : ""
+                  }`}
                 >
-                  Password*
+                  {formState.errors.password
+                    ? formState.errors.password.message
+                    : "Password*"}
                 </label>
                 <Controller
                   name="password"
@@ -159,9 +174,13 @@ const Register = () => {
               <div className="relative h-12 ">
                 <label
                   htmlFor=""
-                  className="absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi"
+                  className={`absolute -top-3 left-5 z-30 bg-white px-3 text-sm font-semi ${
+                    formState.errors.confirmPassword ? "text-red-500" : ""
+                  }`}
                 >
-                  Confirm Password*
+                  {formState.errors.confirmPassword
+                    ? formState.errors.confirmPassword.message
+                    : "Confirm Password*"}
                 </label>
                 <Controller
                   name="confirmPassword"
