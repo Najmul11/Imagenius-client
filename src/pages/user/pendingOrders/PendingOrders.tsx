@@ -13,10 +13,14 @@ import Loader from "../../sharedComponents/loader/Loader";
 
 const PendingOrders = () => {
   useTitle("Pending orders");
-  const { data, isLoading } = useGetAllOrdersQuery({ status: "pending" });
-  const [cancelOrder] = useCancelOrderMutation();
-
   const { accessToken } = useAppSelector((state) => state.accessToken);
+  const { user } = useAppSelector((state) => state.user);
+
+  const { data, isLoading } = useGetAllOrdersQuery({
+    accessToken,
+    params: { status: "pending", customer: user?._id },
+  });
+  const [cancelOrder] = useCancelOrderMutation();
 
   const handleCancel = async (orderId: string) => {
     const response = (await cancelOrder({ orderId, accessToken })) as any;

@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetAllImagesQuery } from "../../redux/api/apiSlice";
 import { BiShoppingBag } from "react-icons/bi";
 import { AiFillFilter } from "react-icons/ai";
@@ -31,6 +31,9 @@ const Images = () => {
   const [selectedSortOption, setSelectedSortOption] =
     useState<string>("newest");
 
+  const { user } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
 
   const sortOrderMap: { [key: string]: string } = {
@@ -51,6 +54,7 @@ const Images = () => {
   const { cart } = useAppSelector((state) => state.cart);
 
   const handleAddToCart = async (image: IImage) => {
+    if (!user) return navigate("/login");
     const existInCart = cart.find((i) => i._id === image._id);
     if (existInCart) return toast.error("Image already in cart");
     await dispatch(addToCart(image));

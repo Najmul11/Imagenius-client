@@ -24,11 +24,14 @@ export type IOrder = {
 
 const ManageOrders = () => {
   useTitle("Manage orders");
+  const { accessToken } = useAppSelector((state) => state.accessToken);
 
-  const { data, isLoading } = useGetAllOrdersQuery({ status: "pending" });
+  const { data, isLoading } = useGetAllOrdersQuery({
+    accessToken,
+    params: { status: "pending" },
+  });
   const [cancelOrder] = useCancelOrderMutation();
   const [deliverOrder] = useDeliverOrderMutation();
-  const { accessToken } = useAppSelector((state) => state.accessToken);
 
   const handleCancel = async (orderId: string) => {
     const response = (await cancelOrder({ orderId, accessToken })) as any;

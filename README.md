@@ -1,5 +1,7 @@
-# Live : [Click Here](https://rig-build-client.vercel.app/)
+### super-admin: najmulbinnurul@gmail.com
 
-# Frontend repo: [Click Here](https://github.com/Najmul11/rig-builder)
+#### password: 12345678
 
-# Backend repo: [Click Here](https://github.com/Najmul11/rig-builder-server)
+# Live : [Click Here](https://imageniusbd.netlify.app/)
+
+# Frontend repo: [Click Here](https://github.com/Najmul11/Imagenius-client)

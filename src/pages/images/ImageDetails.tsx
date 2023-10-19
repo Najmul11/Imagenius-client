@@ -18,6 +18,7 @@ const ImageDetails = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetSingleImageQuery(id);
 
+  const { user } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -28,6 +29,8 @@ const ImageDetails = () => {
   const { cart } = useAppSelector((state) => state.cart);
 
   const handleAddToCart = async (image: IImage) => {
+    if (!user) return navigate("/login");
+
     const existInCart = cart.find((i) => i._id === image._id);
     if (existInCart) return toast.error("Image already in cart");
     await dispatch(addToCart(image));

@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5001/api/v1",
+    baseUrl: "https://imagenius-server.vercel.app/api/v1",
   }),
   tagTypes: ["users", "user", "images", "orders"],
   endpoints: (builder) => ({
@@ -29,9 +29,12 @@ export const api = createApi({
       providesTags: ["images"],
     }),
     getAllOrders: builder.query({
-      query: (params) => ({
+      query: ({ params, accessToken }) => ({
         url: `/orders?${new URLSearchParams(params).toString()}`,
         method: "Get",
+        headers: {
+          Authorization: accessToken,
+        },
       }),
       providesTags: ["orders"],
     }),

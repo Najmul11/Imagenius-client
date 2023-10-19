@@ -3,7 +3,6 @@ import Header from "../pages/sharedComponents/header/Header";
 import Footer from "../pages/sharedComponents/footer/Footer";
 import { adminMenus, userMenus } from "./Layout.constant";
 import { useAppSelector } from "../redux/hook";
-import { FaEdit } from "react-icons/fa";
 
 const DashBoard = () => {
   const { user } = useAppSelector((state) => state.user);
