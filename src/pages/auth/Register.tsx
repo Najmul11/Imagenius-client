@@ -22,7 +22,7 @@ const Register = () => {
   useTitle("Register");
   const [agreeToTC, setAgreeToTC] = useState<boolean>(false);
   const { control, handleSubmit, setValue, watch } = useForm<IFormData>();
-  const [createUser] = useCreateUserMutation();
+  const [createUser, { isLoading }] = useCreateUserMutation();
 
   const navigate = useNavigate();
 
@@ -198,10 +198,14 @@ const Register = () => {
             <div className="">
               <button
                 type="submit"
-                disabled={!agreeToTC}
+                disabled={!agreeToTC || isLoading}
                 className="px-8 py-3 text-white w-full bg-black bg-opacity-90 hover:bg-opacity-100 duration-200  rounded-lg font-semi "
               >
-                Sign Up
+                {isLoading ? (
+                  <span className="loading loading-spinner loading-md"></span>
+                ) : (
+                  "Sign Up"
+                )}
               </button>
             </div>
             <div className="text-center font-semi flex justify-center gap-x-1">

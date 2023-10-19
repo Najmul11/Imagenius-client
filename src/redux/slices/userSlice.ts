@@ -8,10 +8,12 @@ type IUserState = {
     photoUrl?: string;
     role: string;
   } | null;
+  loading: boolean;
 };
 
 const initialState: IUserState = {
   user: null,
+  loading: false,
 };
 
 const userSlice = createSlice({
@@ -24,9 +26,16 @@ const userSlice = createSlice({
     clearUser: (state) => {
       state.user = null;
     },
+    setLoadingTrue: (state) => {
+      state.loading = true;
+    },
+    setLoadingFalse: (state) => {
+      state.loading = false;
+    },
   },
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+export const { setUser, clearUser, setLoadingTrue, setLoadingFalse } =
+  userSlice.actions;
 
 export default userSlice.reducer;

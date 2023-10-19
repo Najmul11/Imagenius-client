@@ -5,7 +5,11 @@ import ScrollUpButton from "./pages/sharedComponents/ScrollUpButton/ScrollUpButt
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
-import { setUser } from "./redux/slices/userSlice";
+import {
+  setLoadingFalse,
+  setLoadingTrue,
+  setUser,
+} from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hook";
 import CallToActions from "./pages/sharedComponents/callToAction/CallToActions";
 import FeedbackModal from "./pages/sharedComponents/callToAction/FeedbackModal";
@@ -15,6 +19,7 @@ function App() {
   const { user } = useAppSelector((state) => state.user);
 
   useEffect(() => {
+    dispatch(setLoadingTrue());
     const accessToken = localStorage.getItem("accessToken");
 
     if (accessToken) {
@@ -26,6 +31,7 @@ function App() {
         console.error("Error decoding access token:", error);
       }
     }
+    dispatch(setLoadingFalse());
   }, [dispatch]);
   return (
     <div>

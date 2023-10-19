@@ -19,6 +19,7 @@ import ImageDetails from "../pages/images/ImageDetails";
 import SearchImages from "../pages/images/SearchImages";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoutes from "./AdminRoutes";
+import TermsConditions from "../pages/termsCondition/TermsConditions";
 
 export const router = createBrowserRouter([
   {
@@ -116,6 +117,10 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Register />,
+      },
+      {
+        path: "/terms-and-conditions",
+        element: <TermsConditions />,
       },
     ],
   },

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useGetAllImagesQuery } from "../../redux/api/apiSlice";
+import Loader from "../sharedComponents/loader/Loader";
 
 type ICategory = {
   _id: string;
@@ -17,17 +18,21 @@ type IImage = {
   category: ICategory;
 };
 const SimilarImages = () => {
-  const { data } = useGetAllImagesQuery({ limit: 8 });
+  const { data, isLoading } = useGetAllImagesQuery({ limit: 8 });
 
   return (
     <div className="mt-10 px-4">
-      <div className="grid lg:grid-cols-4 grid-cols-1 md:grid-cols-3 gap-2">
-        {data?.data?.map((image: IImage) => (
-          <Link to={`/images/${image._id}`}>
-            <img src={image?.image} alt="" />
-          </Link>
-        ))}
-      </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="grid lg:grid-cols-4 grid-cols-1 md:grid-cols-3 gap-2">
+          {data?.data?.map((image: IImage) => (
+            <Link to={`/images/${image._id}`}>
+              <img src={image?.image} alt="" />
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

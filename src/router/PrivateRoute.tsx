@@ -1,21 +1,20 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../redux/hook";
 import { ReactNode } from "react";
-import { useGetProfileQuery } from "../redux/api/apiSlice";
 
 type IProps = {
   children: ReactNode;
 };
 
 const PrivateRoute = ({ children }: IProps) => {
-  const { user } = useAppSelector((state) => state.user);
-  const { isLoading } = useGetProfileQuery(undefined);
+  const { user, loading } = useAppSelector((state) => state.user);
   const location = useLocation();
 
-  if (!user || isLoading) {
-    return <></>;
+  if (!user || loading) {
+    return <div>loading...</div>;
   }
-  if (user && !isLoading) {
+
+  if (user) {
     return children;
   }
   return <Navigate to="/login" state={{ from: location }} replace></Navigate>;

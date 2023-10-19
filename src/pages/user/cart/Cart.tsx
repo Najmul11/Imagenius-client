@@ -7,8 +7,10 @@ import { IImage } from "../../images/Images";
 import { clearCart, removeFromCart } from "../../../redux/slices/cartSlice";
 import toast from "react-hot-toast";
 import CheckoutModal from "./CheckoutModal";
+import useTitle from "../../../hooks/useTitle";
 
 const Cart = () => {
+  useTitle("Cart");
   const { cart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 

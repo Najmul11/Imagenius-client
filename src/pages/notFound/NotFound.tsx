@@ -1,8 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import notFound from "../../assets/notFound.png";
 import { useState, useEffect } from "react";
+import useTitle from "../../hooks/useTitle";
 
 const NotFound = () => {
+  useTitle("Not Found");
+
   const [second, setSecond] = useState<number>(5);
 
   const navigate = useNavigate();

@@ -6,17 +6,11 @@ import { AiFillDelete } from "react-icons/ai";
 import { BsCalendarPlus } from "react-icons/bs";
 import { useAppSelector } from "../../../redux/hook";
 import AddImageModal from "./AddImageModal";
-import EditImageModal from "./EditImageModal";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import DeleteModal from "./DeleteModal";
 import Pagination from "../../sharedComponents/Pagination/Pagination";
-
-export type ICategory = {
-  _id: string;
-  category: string;
-  image: string;
-  popular: boolean;
-};
+import useTitle from "../../../hooks/useTitle";
+import Loader from "../../sharedComponents/loader/Loader";
 
 export type IImage = {
   _id: string;
@@ -24,19 +18,24 @@ export type IImage = {
   publicId: string;
   title: string;
   price: number;
-  category: ICategory;
+  category: string;
 } | null;
 
 const ManageImages = () => {
+  useTitle("Manage images");
+
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data } = useGetAllImagesQuery({ limit: 24, page: currentPage });
+  const { data, isLoading } = useGetAllImagesQuery({
+    limit: 24,
+    page: currentPage,
+  });
 
   const { user: usingAs } = useAppSelector((state) => state.user);
 
   const [image, setImage] = useState<IImage>(null);
 
-  const handleModalData = (image: IImage, e: ChangeEvent) => {
+  const handleModalData = (image: IImage, e: React.MouseEvent) => {
     e.stopPropagation();
     setImage(image);
   };
@@ -63,50 +62,56 @@ const ManageImages = () => {
           Add Image
         </label>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 justify-items-center gap-y-4 gap-1 ">
-        {data?.data.map((image: IImage) => (
-          <Link
-            to={`/images/${image?._id}`}
-            key={image?._id}
-            className="relative hover:shadow-lg"
-          >
-            <img src={image?.image} alt="" className="h-40" />
-            <div className="absolute bottom-0 bg-black bg-opacity-70 w-full text-white p-2 flex justify-between items-center">
-              <div>
-                <p className="text-sm">
-                  Price: <span className="font-semi">{image?.price}$</span>
-                </p>
-              </div>
-              <div
-                onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-3 font-semi text-gray-400 text-lg"
-              >
-                <label
-                  htmlFor="edit-image"
-                  onClick={(e) => handleModalData(image, e)}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 justify-items-center gap-y-4 gap-1 ">
+          {data?.data.map((image: IImage) => (
+            <Link
+              to={`/images/${image?._id}`}
+              key={image?._id}
+              className="relative hover:shadow-lg"
+            >
+              <img src={image?.image} alt="" className="h-40" />
+              <div className="absolute bottom-0 bg-black bg-opacity-70 w-full text-white p-2 flex justify-between items-center">
+                <div>
+                  <p className="text-sm">
+                    Price: <span className="font-semi">{image?.price}$</span>
+                  </p>
+                </div>
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex items-center gap-3 font-semi text-gray-400 text-lg"
                 >
-                  <FaEdit className="hover:text-white" />
-                </label>
-                <label
-                  htmlFor="delete-image"
-                  onClick={(e) => handleModalData(image, e)}
-                >
-                  <AiFillDelete className="hover:text-red-500" />
-                </label>
+                  <label
+                    htmlFor="edit-image"
+                    onClick={(e) => handleModalData(image, e)}
+                  >
+                    <FaEdit className="hover:text-white" />
+                  </label>
+                  <label
+                    htmlFor="delete-image"
+                    onClick={(e) => handleModalData(image, e)}
+                  >
+                    <AiFillDelete className="hover:text-red-500" />
+                  </label>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-      <div className="pt-20  mx-auto w-3/5">
-        <Pagination
-          totalPages={Math.ceil(data?.meta?.total / 24)}
-          handlePageChange={handlePageChange}
-          currentPage={currentPage}
-        />
-      </div>
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {data?.meta && (
+        <div className="pt-20  mx-auto w-3/5">
+          <Pagination
+            totalPages={Math.ceil(data?.meta?.total / 24)}
+            handlePageChange={handlePageChange}
+            currentPage={currentPage}
+          />
+        </div>
+      )}
       <AddImageModal />
-      {image && <EditImageModal image={image} />}
       {image && <DeleteModal image={image} />}
     </div>
   );

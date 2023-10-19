@@ -15,7 +15,7 @@ const EditProfileModal = () => {
   const { control, handleSubmit } = useForm<IFormData>();
 
   const { accessToken } = useAppSelector((state) => state.accessToken);
-  const [updateProfile] = useUpdateProfileMutation();
+  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
   const { data } = useGetProfileQuery(accessToken);
   let using = null;
@@ -85,10 +85,15 @@ const EditProfileModal = () => {
             </div>
             <div className="">
               <button
+                disabled={isLoading}
                 type="submit"
-                className="px-8 py-3 text-white w-full bg-black bg-opacity-90 hover:bg-opacity-100 duration-200  rounded-lg font-semi "
+                className="px-8 h-12 text-white w-full bg-black bg-opacity-90 hover:bg-opacity-100 duration-200  rounded-lg font-semi "
               >
-                Update
+                {isLoading ? (
+                  <span className="loading loading-spinner loading-md"></span>
+                ) : (
+                  "Update"
+                )}
               </button>
             </div>
           </form>

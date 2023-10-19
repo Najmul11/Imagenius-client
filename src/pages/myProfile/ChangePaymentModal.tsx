@@ -12,11 +12,9 @@ const options = ["Bkash", "Nagad", "Binance"];
 
 const ChangePaymentModal = () => {
   const { control, handleSubmit } = useForm<IFormData>();
-  const [changePayment] = useChangePaymentMutation();
+  const [changePayment, { isLoading }] = useChangePaymentMutation();
 
   const { accessToken } = useAppSelector((state) => state.accessToken);
-  const { user } = useAppSelector((state) => state.user);
-  console.log(user?._id);
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
     const response = (await changePayment({
@@ -65,10 +63,15 @@ const ChangePaymentModal = () => {
             </div>
             <div className="">
               <button
+                disabled={isLoading}
                 type="submit"
-                className="px-8 py-3 text-white w-full bg-black bg-opacity-90 hover:bg-opacity-100 duration-200  rounded-lg font-semi "
+                className="px-8 h-12 text-white w-full bg-black bg-opacity-90 hover:bg-opacity-100 duration-200  rounded-lg font-semi "
               >
-                Update
+                {isLoading ? (
+                  <span className="loading loading-spinner loading-md"></span>
+                ) : (
+                  "Update"
+                )}
               </button>
             </div>
           </form>

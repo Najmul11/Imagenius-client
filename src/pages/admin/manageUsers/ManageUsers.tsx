@@ -10,9 +10,13 @@ import { MdOutlineAdminPanelSettings, MdOutlineDelete } from "react-icons/md";
 import { FiDelete } from "react-icons/fi";
 import { useAppSelector } from "../../../redux/hook";
 import toast from "react-hot-toast";
+import useTitle from "../../../hooks/useTitle";
+import Loader from "../../sharedComponents/loader/Loader";
 
 const ManageUsers = () => {
-  const { data } = useGetAllUsersQuery(undefined);
+  useTitle("Manage users");
+
+  const { data, isLoading } = useGetAllUsersQuery(undefined);
 
   const [makeAdmin] = useMakeAdminMutation();
   const [removeAdmin] = useRemoveAdminMutation();
@@ -71,70 +75,74 @@ const ManageUsers = () => {
         </h2>
       </div>
       <div className="overflow-x-scroll w-[95%]  lg:w-4/5 mx-auto my-10">
-        <table className="table table-xs">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data?.data.map((user: IUser, index: number) => (
-              <tr key={user?._id}>
-                <th>{index + 1}</th>
-                <td>{user?.name}</td>
-                <td>{user?.email}</td>
-                <td
-                  className={
-                    user?.role === "admin" || user?.role === "super admin"
-                      ? "font-semi"
-                      : ""
-                  }
-                >
-                  {user?.role}
-                </td>
-                <td>
-                  {usingAs?.role === "super admin" &&
-                    (user?.role === "admin" ? (
-                      <button
-                        onClick={() => removeAdminHandler(user._id)}
-                        className="flex items-center gap-3 rounded-xl font-semi transition-all duration-300 bg-gradient2 bg-opacity-50 hover:text-red-500 px-2 py-1"
-                      >
-                        <FiDelete className="text-red-500" />
-                        Remove Admin
-                      </button>
-                    ) : user?.role === "user" ? (
-                      <button
-                        onClick={() => makeAdminHandler(user!._id)}
-                        className="flex items-center gap-3 rounded-xl font-semi transition-all duration-300 bg-gradient2 bg-opacity-50 hover:bg-opacity-90 px-2 py-1"
-                      >
-                        <MdOutlineAdminPanelSettings className="text-blue-500" />
-                        Make Admin
-                      </button>
-                    ) : null)}
-                </td>
-                <td className="flex justify-end">
-                  {(usingAs?.role === "super admin" &&
-                    user?.role !== "super admin") ||
-                  (usingAs?.role === "admin" &&
-                    user?.role !== "admin" &&
-                    user?.role !== "super admin") ? (
-                    <button
-                      onClick={() => deleteUserHandler(user!._id)}
-                      className="flex items-center gap-3 rounded-xl font-semi transition-all duration-300 hover:text-red-500 bg-gradient2 bg-opacity-50 px-2 py-1"
-                    >
-                      <MdOutlineDelete className="text-red-500" />
-                      Delete User
-                    </button>
-                  ) : null}
-                </td>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <table className="table table-xs">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data?.data.map((user: IUser, index: number) => (
+                <tr key={user?._id}>
+                  <th>{index + 1}</th>
+                  <td>{user?.name}</td>
+                  <td>{user?.email}</td>
+                  <td
+                    className={
+                      user?.role === "admin" || user?.role === "super admin"
+                        ? "font-semi"
+                        : ""
+                    }
+                  >
+                    {user?.role}
+                  </td>
+                  <td>
+                    {usingAs?.role === "super admin" &&
+                      (user?.role === "admin" ? (
+                        <button
+                          onClick={() => removeAdminHandler(user._id)}
+                          className="flex items-center gap-3 rounded-xl font-semi transition-all duration-300 bg-gradient2 bg-opacity-50 hover:text-red-500 px-2 py-1"
+                        >
+                          <FiDelete className="text-red-500" />
+                          Remove Admin
+                        </button>
+                      ) : user?.role === "user" ? (
+                        <button
+                          onClick={() => makeAdminHandler(user!._id)}
+                          className="flex items-center gap-3 rounded-xl font-semi transition-all duration-300 bg-gradient2 bg-opacity-50 hover:bg-opacity-90 px-2 py-1"
+                        >
+                          <MdOutlineAdminPanelSettings className="text-blue-500" />
+                          Make Admin
+                        </button>
+                      ) : null)}
+                  </td>
+                  <td className="flex justify-end">
+                    {(usingAs?.role === "super admin" &&
+                      user?.role !== "super admin") ||
+                    (usingAs?.role === "admin" &&
+                      user?.role !== "admin" &&
+                      user?.role !== "super admin") ? (
+                      <button
+                        onClick={() => deleteUserHandler(user!._id)}
+                        className="flex items-center gap-3 rounded-xl font-semi transition-all duration-300 hover:text-red-500 bg-gradient2 bg-opacity-50 px-2 py-1"
+                      >
+                        <MdOutlineDelete className="text-red-500" />
+                        Delete User
+                      </button>
+                    ) : null}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

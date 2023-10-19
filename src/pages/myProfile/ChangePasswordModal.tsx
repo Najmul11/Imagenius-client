@@ -11,7 +11,7 @@ type IFormData = {
 const ChangePasswordModal = () => {
   const { control, handleSubmit } = useForm<IFormData>();
 
-  const [changePassword] = useChangePasswordMutation();
+  const [changePassword, { isLoading }] = useChangePasswordMutation();
 
   const { accessToken } = useAppSelector((state) => state.accessToken);
 
@@ -79,10 +79,15 @@ const ChangePasswordModal = () => {
             </div>
             <div className="">
               <button
+                disabled={isLoading}
                 type="submit"
                 className="px-8 py-3 text-white w-full bg-black bg-opacity-90 hover:bg-opacity-100 duration-200  rounded-lg font-semi "
               >
-                Update
+                {isLoading ? (
+                  <span className="loading loading-spinner loading-md"></span>
+                ) : (
+                  "Update"
+                )}
               </button>
             </div>
           </form>

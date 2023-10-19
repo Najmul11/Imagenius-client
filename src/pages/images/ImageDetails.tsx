@@ -9,10 +9,14 @@ import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { IImage } from "./Images";
 import toast from "react-hot-toast";
 import { addToCart } from "../../redux/slices/cartSlice";
+import useTitle from "../../hooks/useTitle";
+import Loader from "../sharedComponents/loader/Loader";
 
 const ImageDetails = () => {
+  useTitle("Image details");
+
   const { id } = useParams();
-  const { data } = useGetSingleImageQuery(id);
+  const { data, isLoading } = useGetSingleImageQuery(id);
 
   const navigate = useNavigate();
 
@@ -41,29 +45,33 @@ const ImageDetails = () => {
             <MdArrowBackIosNew />
           </button>
         </div>
-        <div className=" lg:w-[92%] mx-auto rounded-lg">
-          <img
-            src={data?.data?.image}
-            alt=""
-            className=" w-full mx-auto rounded-t-lg"
-          />
-          <div className="bg-black bg-opacity-90 h-12 flex justify-between items-center px-5">
-            <p className="text-lg text-white font-semi ">
-              Price: <span className="text-3xl">{data?.data?.price}$</span>
-            </p>
-            <p className="text-sm text-white ">
-              <span className="font-semi text-2xl capitalize">
-                {data?.data?.title}
-              </span>
-            </p>
-            <button
-              onClick={() => handleAddToCart(data)}
-              className="text-white text-3xl hover:text-blue-500 active:text-gradient2"
-            >
-              <BiShoppingBag />
-            </button>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div className=" lg:w-[92%] mx-auto rounded-lg">
+            <img
+              src={data?.data?.image}
+              alt=""
+              className=" w-full mx-auto rounded-t-lg"
+            />
+            <div className="bg-black bg-opacity-90 h-12 flex justify-between items-center px-5">
+              <p className="text-lg text-white font-semi ">
+                Price: <span className="text-3xl">{data?.data?.price}$</span>
+              </p>
+              <p className="text-sm text-white ">
+                <span className="font-semi text-2xl capitalize">
+                  {data?.data?.title}
+                </span>
+              </p>
+              <button
+                onClick={() => handleAddToCart(data)}
+                className="text-white text-3xl hover:text-blue-500 active:text-gradient2"
+              >
+                <BiShoppingBag />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="py-10">
         <h3 className="font-bold text-sm lg:text-xl text-center">

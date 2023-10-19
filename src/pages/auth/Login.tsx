@@ -25,7 +25,7 @@ export type IUser = {
 
 const Login = () => {
   useTitle("Login");
-  const [userLogin] = useUserLoginMutation();
+  const [userLogin, { isLoading }] = useUserLoginMutation();
 
   const { handleSubmit, control } = useForm<IFormData>();
 
@@ -112,10 +112,15 @@ const Login = () => {
             </div>
             <div>
               <button
+                disabled={isLoading}
                 type="submit"
-                className="px-8 py-3 text-white w-full bg-black bg-opacity-90 hover:bg-opacity-100 duration-200 rounded-lg font-semi"
+                className="px-8 h-12 text-white w-full bg-black bg-opacity-90 hover:bg-opacity-100 duration-200 rounded-lg font-semi"
               >
-                Sign In
+                {isLoading ? (
+                  <span className="loading loading-spinner loading-md"></span>
+                ) : (
+                  "Sign In"
+                )}
               </button>
             </div>
             <div className="text-center font-semi flex justify-center gap-x-1">
