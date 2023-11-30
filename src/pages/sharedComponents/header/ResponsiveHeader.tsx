@@ -32,7 +32,7 @@ const ResponsiveHeader = () => {
             Profile
           </Link>
         ) : (
-          <Link to={"/account/login"} className="text-[12px] text-black">
+          <Link to={"/login"} className="text-[12px] text-black">
             <MdOutlineManageAccounts className="text-3xl text-black z-50 mx-auto" />
             Account
           </Link>

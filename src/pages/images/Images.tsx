@@ -91,9 +91,9 @@ const Images = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 px-4 ">
+        <div className=" columns-1 md:columns-3 lg:columns-4 space-y-2  gap-2 px-4 bg-red-200">
           {data?.data?.map((image: IImage) => (
-            <div key={image._id}>
+            <div key={image._id} className="break-inside-avoid-column">
               <Link to={`/images/${image?._id}`}>
                 <img src={image?.image} alt="" />
               </Link>

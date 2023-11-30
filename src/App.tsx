@@ -12,8 +12,8 @@ import {
 } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hook";
 import CallToActions from "./pages/sharedComponents/callToAction/CallToActions";
-import FeedbackModal from "./pages/sharedComponents/callToAction/FeedbackModal";
 import ScrollTopAuto from "./pages/sharedComponents/scrollToTopAuto/ScrollTopAuto";
+import CustomOrderModal from "./pages/sharedComponents/callToAction/CustomOrderModal";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -37,7 +37,7 @@ function App() {
   return (
     <div>
       <CallToActions />
-      <FeedbackModal user={user} />
+      <CustomOrderModal user={user} />
       <ScrollTopAuto />
       <ScrollRestoration
         getKey={(location) => {

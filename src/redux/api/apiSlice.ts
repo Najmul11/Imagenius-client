@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://imagenius-server.vercel.app/api/v1",
+    baseUrl: "http://localhost:5000/api/v1",
   }),
   tagTypes: ["users", "user", "images", "orders"],
   endpoints: (builder) => ({
@@ -173,17 +173,7 @@ export const api = createApi({
       }),
       invalidatesTags: ["images"],
     }),
-    createFeedback: builder.mutation({
-      query: ({ payload, accessToken }) => ({
-        url: `/feedback`,
-        method: "POST",
-        body: payload,
-        headers: {
-          Authorization: accessToken,
-        },
-      }),
-      invalidatesTags: ["images"],
-    }),
+
     createOrder: builder.mutation({
       query: ({ payload, accessToken }) => ({
         url: `/orders/create-order`,
@@ -236,7 +226,6 @@ export const {
   useEditImageMutation,
   useDeleteImageMutation,
   useGetSingleImageQuery,
-  useCreateFeedbackMutation,
   useCreateOrderMutation,
   useCancelOrderMutation,
   useDeliverOrderMutation,
