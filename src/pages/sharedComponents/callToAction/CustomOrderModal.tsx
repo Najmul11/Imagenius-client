@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useAppSelector } from "../../../redux/hook";
 import { IUser } from "../../auth/Login";
 import { ChangeEvent } from "react";
+import { useCreateCustomOrderMutation } from "../../../redux/api/apiSlice";
 
 type IFormData = {
   service: string;
@@ -16,8 +17,23 @@ const CustomOrderModal = ({ user }: { user: IUser }) => {
     useForm<IFormData>();
   const { accessToken } = useAppSelector((state) => state.accessToken);
 
-  const onSubmit: SubmitHandler<IFormData> = async (data) => {
+  const [createCustomOrder] = useCreateCustomOrderMutation();
+
+  const onSubmit: SubmitHandler<IFormData> = async (data: any) => {
     if (!user) return toast.error("Please Login before ordering seervice");
+
+    const formData = new FormData();
+    formData.append("service", data.service);
+    formData.append("file", data.image);
+
+    const res = (await createCustomOrder({
+      data: formData,
+      accessToken,
+    })) as any;
+
+    if (res.data) {
+      toast.success("Custom order placed");
+    }
   };
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +48,7 @@ const CustomOrderModal = ({ user }: { user: IUser }) => {
 
   const imagePreview = watch("imagePreview");
 
-  const services = ["Blur", "Remove Background"];
+  const services = ["Remove Background", "Blur"];
 
   return (
     <>
@@ -82,6 +98,7 @@ const CustomOrderModal = ({ user }: { user: IUser }) => {
                 <Controller
                   name="service"
                   control={control}
+                  defaultValue="Remove Background"
                   render={({ field }) => (
                     <select
                       {...field}

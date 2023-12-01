@@ -205,6 +205,16 @@ export const api = createApi({
       }),
       invalidatesTags: ["orders"],
     }),
+    createCustomOrder: builder.mutation({
+      query: ({ data, accessToken }) => ({
+        url: `/custom-order/create`,
+        method: "POST",
+        body: data,
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+    }),
   }),
 });
 
@@ -229,4 +239,5 @@ export const {
   useCreateOrderMutation,
   useCancelOrderMutation,
   useDeliverOrderMutation,
+  useCreateCustomOrderMutation,
 } = api;
