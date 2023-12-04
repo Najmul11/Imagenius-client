@@ -5,7 +5,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000/api/v1",
   }),
-  tagTypes: ["users", "user", "images", "orders"],
+  tagTypes: ["users", "user", "images", "orders", "custom-orders"],
   endpoints: (builder) => ({
     getAllCategories: builder.query({
       query: (params) => ({
@@ -205,6 +205,16 @@ export const api = createApi({
       }),
       invalidatesTags: ["orders"],
     }),
+    getCustomOrders: builder.query({
+      query: (accessToken) => ({
+        url: `/custom-order/all-custom-orders`,
+        method: "GET",
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      providesTags: ["custom-orders"],
+    }),
     createCustomOrder: builder.mutation({
       query: ({ data, accessToken }) => ({
         url: `/custom-order/create`,
@@ -214,6 +224,18 @@ export const api = createApi({
           Authorization: accessToken,
         },
       }),
+      invalidatesTags: ["custom-orders"],
+    }),
+    processImage: builder.mutation({
+      query: ({ data, accessToken }) => ({
+        url: `/custom-order/process-order`,
+        method: "PATCH",
+        body: data,
+        headers: {
+          Authorization: accessToken,
+        },
+      }),
+      invalidatesTags: ["custom-orders"],
     }),
   }),
 });
@@ -240,4 +262,6 @@ export const {
   useCancelOrderMutation,
   useDeliverOrderMutation,
   useCreateCustomOrderMutation,
+  useGetCustomOrdersQuery,
+  useProcessImageMutation,
 } = api;

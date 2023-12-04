@@ -32,6 +32,10 @@ export const adminMenus = [
     tag: "Manage Orders",
   },
   {
+    to: "/dashboard/admin/manage-custom-order",
+    tag: "Custom Orders",
+  },
+  {
     to: "/dashboard/admin/category-management",
     tag: "Manage Categories",
   },

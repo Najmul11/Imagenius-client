@@ -20,10 +20,15 @@ const CustomOrderModal = ({ user }: { user: IUser }) => {
   const [createCustomOrder] = useCreateCustomOrderMutation();
 
   const onSubmit: SubmitHandler<IFormData> = async (data: any) => {
+    if (!data.service || !data.image)
+      return toast.error("Please provide all needed information");
+
     if (!user) return toast.error("Please Login before ordering seervice");
 
     const formData = new FormData();
     formData.append("service", data.service);
+    console.log(data?.image);
+
     formData.append("file", data.image);
 
     const res = (await createCustomOrder({
@@ -33,6 +38,7 @@ const CustomOrderModal = ({ user }: { user: IUser }) => {
 
     if (res.data) {
       toast.success("Custom order placed");
+      reset();
     }
   };
 
@@ -48,7 +54,7 @@ const CustomOrderModal = ({ user }: { user: IUser }) => {
 
   const imagePreview = watch("imagePreview");
 
-  const services = ["Remove Background", "Blur"];
+  const services = ["Remove Background", "Circle Crop ", "Blur"];
 
   return (
     <>
@@ -120,7 +126,7 @@ const CustomOrderModal = ({ user }: { user: IUser }) => {
                 type="submit"
                 className="px-8 py-3 text-white w-full bg-black bg-opacity-90 hover:bg-opacity-100 duration-200  rounded-lg font-semi "
               >
-                Add
+                Continue
               </button>
             </div>
           </form>

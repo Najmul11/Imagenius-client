@@ -20,6 +20,7 @@ import SearchImages from "../pages/images/SearchImages";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoutes from "./AdminRoutes";
 import TermsConditions from "../pages/termsCondition/TermsConditions";
+import ManageCustomOrders from "../pages/admin/customOrders/ManageCustomOrders";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +75,14 @@ export const router = createBrowserRouter([
             element: (
               <AdminRoutes>
                 <ManageOrders />
+              </AdminRoutes>
+            ),
+          },
+          {
+            path: "/dashboard/admin/manage-custom-order",
+            element: (
+              <AdminRoutes>
+                <ManageCustomOrders />
               </AdminRoutes>
             ),
           },
